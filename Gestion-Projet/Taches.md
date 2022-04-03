@@ -1,5 +1,5 @@
 # Projet M1-S2 Emargement:
-Sujet : gestion des émargements
+##Sujet : gestion des émargements
 
 L’objectif de ce projet est d’informatiser et sécuriser la gestion des émargements. Le projet se concentre sur la création, l’alimentation et la consultation des émargements.
 
@@ -33,11 +33,11 @@ Pour la réalisation du projet, vous devez utiliser les technologies suivantes :
 - Un étudiant est inscrit dans un groupe selon le type de cours
 - Chaque étudiant possède un état "Absent-Present"
 - Un enseignant est rattaché à un ou plusieurs groupes
-- Un émargement est composé d'une heure, et d'une date et d'un groupe et d'un étudiant
+- Un émargement est composé d'une heure, et d'une date et d'un groupe et d'étudiants
 - Scan de QR code fait appel à la fonction de changement d'état (absent/présent) selon le groupe
 - Un enseignant scan le QR Code (à la find e l'heure) qui va clôturer l'URL (les émargements)
 - Un membre administratif génère la liste d'émargements
-- Un membre administratif peut consulter l'historique de toutes les listes d'émargements (clôses et ouvertes)
+- Un membre administratif peut consulter l'historique de toutes les listes d'émargements (clôses et ouvertes et en attente)
 - L'URL (une fois qu'on scan de QR code) nous envoie vers une page d'authentificaiton:
   - Si utilisateur = prof alors avoir la possibilité de clôturer le QR Code ou de consulter les listes
   - Si utilisateur = étudiant alors avoir la possibilité de valider sa présence

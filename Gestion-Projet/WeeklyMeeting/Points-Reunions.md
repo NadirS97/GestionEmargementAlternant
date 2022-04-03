@@ -6,5 +6,6 @@
 - Creation du depot vierge
 - Creation de GestionProjet avec les taches à suivre
 - Etude du fonctionnement du diagramme de Gantt
+- Créations des entités/modeles (avec constructeurs)
 
 
