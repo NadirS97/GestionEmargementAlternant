@@ -1,9 +1,12 @@
 package fr.orleans.m1.wsi.projets2emargement;
 
+import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeEnseignant;
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeEtudiant;
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeGroupe;
+import fr.orleans.m1.wsi.projets2emargement.Modele.Enseignant;
 import fr.orleans.m1.wsi.projets2emargement.Modele.Etudiant;
 import fr.orleans.m1.wsi.projets2emargement.Modele.Groupe;
+import fr.orleans.m1.wsi.projets2emargement.Modele.Role;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,9 +39,25 @@ public class ProjetS2EmargementApplication {
                     List.of(etudiant)
             );
             facadeGroup.insert(group);
+        };
+    }
+
+
+    @Bean
+    CommandLineRunner runner(MongoTemplate mongoTemplate, FacadeEnseignant facadeEnseignant){
+        return args -> {
+            Enseignant enseignant = new Enseignant(
+                    "NomEns1",
+                    "PrenomEns1",
+                    "o1523"
+            );
+
+            facadeEnseignant.insert(enseignant);
 
         };
     }
+
+
 
 
 }
