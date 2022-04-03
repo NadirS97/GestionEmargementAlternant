@@ -8,14 +8,16 @@ public class SousModule {
     private Module module;
     private TypeCours typeCours;
     private Groupe groupe;
+    private Enseignant enseignant;
 
    //ENS
 
-    public SousModule(String nomSM, Module module, TypeCours typeCours, Groupe groupe) {
+    public SousModule(String nomSM, Module module, TypeCours typeCours, Groupe groupe ,Enseignant enseignant) {
         this.nomSM = nomSM;
         this.module = module;
         this.typeCours = typeCours;
         this.groupe = groupe;
+        this.enseignant=enseignant;
     }
 
     public String getNomSM() {
@@ -50,5 +52,11 @@ public class SousModule {
         this.groupe = groupe;
     }
 
+    public Enseignant getEnseignant() {
+        return enseignant;
+    }
 
+    public void setEnseignant(Enseignant enseignant) {
+        this.enseignant = enseignant;
+    }
 }
