@@ -1,9 +1,14 @@
 package fr.orleans.m1.wsi.projets2emargement.Modele;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.List;
 
+@Document
 public class Etudiant {
 
+    @Id
     private String numEtu;
     private String nom;
     private String prenom;
