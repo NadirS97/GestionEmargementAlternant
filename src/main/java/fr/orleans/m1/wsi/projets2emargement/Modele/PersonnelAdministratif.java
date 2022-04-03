@@ -5,7 +5,7 @@ public class PersonnelAdministratif {
     private String idAdm;
     private String nomAdm;
     private String prenomAdm;
-    private Utilisateur utilisateur;
+    private final Utilisateur utilisateur;
 
     public PersonnelAdministratif(String idAdm, String nomAdm, String prenomAdm) {
         this.idAdm = idAdm;

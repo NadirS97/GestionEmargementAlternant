@@ -7,7 +7,7 @@ public class Enseignant {
     private String prenomEns;
     private String idEnseignant;
     private List<SousModule> sousModules;
-    private Utilisateur utilisateur;
+    private final Utilisateur utilisateur;
 
     public Enseignant(String nomEns, String prenomEns, String idEnseignant) {
         this.nomEns = nomEns;

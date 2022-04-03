@@ -10,7 +10,7 @@ public class Etudiant {
     private String email;
     private Etat etat;
     private List<Groupe> groupes;
-    private Utilisateur utilisateur;
+    private final Utilisateur utilisateur;
 
     public Etudiant(String numEtu, String nom, String prenom, String email, List<Groupe> groupes) {
         this.numEtu = numEtu;
