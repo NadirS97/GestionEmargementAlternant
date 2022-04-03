@@ -10,6 +10,7 @@ public class Etudiant {
     private String email;
     private Etat etat;
     private List<Groupe> groupes;
+    private Utilisateur utilisateur;
 
     public Etudiant(String numEtu, String nom, String prenom, String email, List<Groupe> groupes) {
         this.numEtu = numEtu;
@@ -18,6 +19,7 @@ public class Etudiant {
         this.email = email;
         this.etat = Etat.ABSENT;
         this.groupes = groupes;
+        this.utilisateur = new Utilisateur(email, numEtu, Role.Etudiant);
     }
     public Etudiant(String numEtu, String nom, String prenom, String email) {
         this.numEtu = numEtu;
@@ -26,6 +28,7 @@ public class Etudiant {
         this.email = email;
         this.etat = Etat.ABSENT;
         this.groupes = List.of();
+        this.utilisateur = new Utilisateur(email, numEtu, Role.Etudiant);
     }
 
     public String getNumEtu() {
@@ -79,4 +82,7 @@ public class Etudiant {
     public void addGroupe(Groupe groupe) {
         this.groupes.add(groupe);
     }
+
+    public Utilisateur getUtilisateur() { return utilisateur; }
+
 }

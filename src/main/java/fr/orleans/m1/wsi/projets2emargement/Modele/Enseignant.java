@@ -7,12 +7,14 @@ public class Enseignant {
     private String prenomEns;
     private String idEnseignant;
     private List<SousModule> sousModules;
+    private Utilisateur utilisateur;
 
     public Enseignant(String nomEns, String prenomEns, String idEnseignant) {
         this.nomEns = nomEns;
         this.prenomEns = prenomEns;
         this.idEnseignant = idEnseignant;
         this.sousModules=List.of();
+        this.utilisateur = new Utilisateur(nomEns, idEnseignant, Role.Enseignant);
 
     }
 
@@ -21,6 +23,7 @@ public class Enseignant {
         this.prenomEns = prenomEns;
         this.idEnseignant = idEnseignant;
         this.sousModules = sousModules;
+        this.utilisateur = new Utilisateur(nomEns, idEnseignant, Role.Enseignant);
     }
 
     public String getNomEns() {
@@ -54,4 +57,7 @@ public class Enseignant {
     public void setSousModules(List<SousModule> sousModules) {
         this.sousModules = sousModules;
     }
+
+    public Utilisateur getUtilisateur() { return utilisateur; }
+
 }
