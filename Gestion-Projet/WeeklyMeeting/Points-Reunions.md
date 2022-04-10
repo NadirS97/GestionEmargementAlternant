@@ -1,6 +1,7 @@
 #Réunions
 
 ---
+
 ##03/04/2022 Début
 - Analyse du projet, discussions
 - Liste des fonctionalités, des modeles et des etapes à suivre (cahier des charges)
@@ -15,6 +16,12 @@
 ### A Faire pour la prochaine réunion
 - Mise en place du tableau des URI et création des API GET / POST
 - Tests des API crées
+
+---
+
+##10/04/2022
+- Discussions sur les URI à utiliser, les fonctionalités à mettre en place
+- Debut de creation du tableau des URI (voir TableURI.md)
 
 ---
 

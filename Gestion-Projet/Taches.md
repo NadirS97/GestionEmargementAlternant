@@ -1,4 +1,6 @@
 # Projet M1-S2 Emargement:
+
+---
 ##Sujet : gestion des émargements
 
 L’objectif de ce projet est d’informatiser et sécuriser la gestion des émargements. Le projet se concentre sur la création, l’alimentation et la consultation des émargements.
@@ -26,7 +28,6 @@ Pour la réalisation du projet, vous devez utiliser les technologies suivantes :
 - Liste de tous les étudiants par groupe
 - Liste des étudiants présents
 - Liste des étudiants absents
-- Recherche de l'historique des présences d'un seul étudiant
 - Un semestre est composé d'un ou plusieurs modules
 - Un module est composé de plusieurs types de cours (CM/TD/TP)
 - Un type de cours (TD/TP) est composé de plusieurs groupes
@@ -39,7 +40,7 @@ Pour la réalisation du projet, vous devez utiliser les technologies suivantes :
 - Un membre administratif génère la liste d'émargements
 - Un membre administratif peut consulter l'historique de toutes les listes d'émargements (clôses et ouvertes et en attente)
 - L'URL (une fois qu'on scan de QR code) nous envoie vers une page d'authentificaiton:
-  - Si utilisateur = prof alors avoir la possibilité de clôturer le QR Code ou de consulter les listes
+  - Si utilisateur = prof alors avoir la possibilité de clôturer le QR Code
   - Si utilisateur = étudiant alors avoir la possibilité de valider sa présence
 - Un membre administratif peut
   - consulter la liste des identifiants (QR code) qui sont en cours de circulation 
@@ -48,12 +49,15 @@ Pour la réalisation du projet, vous devez utiliser les technologies suivantes :
   - consulter les listes d'émargements en accédant à l'identifiant d'un QR code clôturé
 - Un QR code possède un temps de validité afin de s'auto-clôturer dans le cas ou le prof n'a pas clôturer (entre autre pour "le travail en autonomie")
 
+###Optionnel:
+- Recherche de l'historique des présences d'un seul étudiant
+
 ##Etapes à suivre:
 1. Création des entités (Etudiant, Utilisateur, Enseignant, PersonnelAdministratif, Semestre, Module, Groupe, Emargement)
 
 2. Création de la base de données (Emargements)
 
-3. Création des contrôleurs
+3. Création de la table des URI et des contrôleurs (Mapping GET & POST)
 
 4. Génération des API
 
