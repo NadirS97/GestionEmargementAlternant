@@ -1,0 +1,25 @@
+GET http://localhost:8080/Etu/
+
+###
+GET http://localhost:8080/Etu/o212121
+
+###
+DELETE http://localhost:8080/Etu/o212121
+
+###
+POST http://localhost:8080/Etu/
+Content-Type: application/json
+
+{
+  "numEtu": "o212121",
+  "nom": "Nom1",
+  "prenom": "Prenom1",
+  "email": "example@gmail.com",
+  "etat": "ABSENT",
+  "groupes": [],
+  "utilisateur": {
+    "login": "example@gmail.com",
+    "password": "o123456",
+    "role": "Etudiant"
+  }
+}

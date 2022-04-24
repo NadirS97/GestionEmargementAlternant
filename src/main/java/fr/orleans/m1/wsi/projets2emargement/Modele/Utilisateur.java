@@ -11,6 +11,8 @@ public class Utilisateur {
         this.password = password;
         this.role = role;
     }
+    public Utilisateur() {
+    }
 
     public String getLogin() {
         return login;

@@ -15,7 +15,7 @@ public class Etudiant {
     private String email;
     private Etat etat;
     private List<Groupe> groupes;
-    private final Utilisateur utilisateur;
+    private Utilisateur utilisateur;
 
     public Etudiant(String numEtu, String nom, String prenom, String email, List<Groupe> groupes) {
         this.numEtu = numEtu;
@@ -34,6 +34,8 @@ public class Etudiant {
         this.etat = Etat.ABSENT;
         this.groupes = List.of();
         this.utilisateur = new Utilisateur(email, numEtu, Role.Etudiant);
+    }
+    public Etudiant() {
     }
 
     public String getNumEtu() {
@@ -90,4 +92,7 @@ public class Etudiant {
 
     public Utilisateur getUtilisateur() { return utilisateur; }
 
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
 }

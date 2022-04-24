@@ -1,20 +1,7 @@
 package fr.orleans.m1.wsi.projets2emargement;
 
-import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeEnseignant;
-import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeEtudiant;
-import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeGroupe;
-import fr.orleans.m1.wsi.projets2emargement.Modele.Enseignant;
-import fr.orleans.m1.wsi.projets2emargement.Modele.Etudiant;
-import fr.orleans.m1.wsi.projets2emargement.Modele.Groupe;
-import fr.orleans.m1.wsi.projets2emargement.Modele.Role;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.mongodb.core.MongoTemplate;
-
-import javax.swing.*;
-import java.util.List;
 
 @SpringBootApplication
 public class ProjetS2EmargementApplication {
@@ -23,7 +10,7 @@ public class ProjetS2EmargementApplication {
         SpringApplication.run(ProjetS2EmargementApplication.class, args);
     }
 
-    @Bean
+ /*   @Bean
     CommandLineRunner runner(FacadeEtudiant facadeEtudiant, MongoTemplate mongoTemplate, FacadeGroupe facadeGroup){
         return args -> {
             Etudiant etudiant = new Etudiant(
@@ -57,7 +44,7 @@ public class ProjetS2EmargementApplication {
         };
     }
 
-
+*/
 
 
 }
