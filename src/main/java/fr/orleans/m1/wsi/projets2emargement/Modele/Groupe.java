@@ -1,7 +1,10 @@
 package fr.orleans.m1.wsi.projets2emargement.Modele;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.List;
 
+@Document
 public class Groupe {
 
     private String nomG;
