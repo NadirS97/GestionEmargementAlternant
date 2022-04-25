@@ -23,3 +23,21 @@ Content-Type: application/json
     "role": "Etudiant"
   }
 }
+
+###
+POST http://localhost:8080/Ens/
+Content-Type: application/json
+
+{
+  "idEnseignant": "o212121",
+  "nomEns": "Prenom12",
+  "prenomEns": "Nom12"
+}
+###
+GET http://localhost:8080/Ens/o212121
+
+###
+DELETE http://localhost:8080/Ens/o212121
+
+###
+GET http://localhost:8080/Ens/

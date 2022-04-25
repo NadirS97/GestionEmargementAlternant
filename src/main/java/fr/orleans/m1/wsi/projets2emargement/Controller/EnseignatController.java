@@ -40,19 +40,24 @@ public class EnseignatController {
                     Enseignant enseignant = new Enseignant(ens.getNomEns(),ens.getPrenomEns(),ens.getIdEnseignant());
                     facadeEnseignant.save(enseignant);
                     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{idEns}").buildAndExpand(ens.getIdEnseignant()).toUri();
-                    return ResponseEntity.status(HttpStatus.OK).body(enseignant);
+                    return ResponseEntity.created(uri).body(enseignant);
             }
         }
     }
 
     @GetMapping("/{idEns}")
     public ResponseEntity<Enseignant> GetEns(@PathVariable String idEns){
-        if(facadeEnseignant.findById(idEns).isPresent()){
-            Optional<Enseignant> ens = facadeEnseignant.findById(idEns);
-            return ResponseEntity.ok().body(ens.get());
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        Optional<Enseignant> ens = facadeEnseignant.findById(idEns);
+        return ens.map(enseignant -> ResponseEntity.ok().body(enseignant)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @DeleteMapping("/{idEns}")
+    public ResponseEntity<String> DeleteEns(@PathVariable String idEns){
+        Optional<Enseignant> ens = facadeEnseignant.findById(idEns);
+        return ens.map(enseignant -> {
+            facadeEnseignant.deleteById(idEns);
+            return ResponseEntity.ok().body("Element a ete bien suprimee");
+        }).orElseGet(() ->  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Element non trouvable"));
     }
 
 }

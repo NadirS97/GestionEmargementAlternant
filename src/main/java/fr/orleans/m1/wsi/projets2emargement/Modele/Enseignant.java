@@ -7,12 +7,12 @@ import java.util.List;
 
 @Document
 public class Enseignant {
-    private String nomEns;
-    private String prenomEns;
     @Id
     private String idEnseignant;
+    private String nomEns;
+    private String prenomEns;
     private List<SousModule> sousModules;
-    private final Utilisateur utilisateur;
+    private Utilisateur utilisateur;
 
     public Enseignant(String nomEns, String prenomEns, String idEnseignant) {
         this.nomEns = nomEns;
@@ -29,6 +29,9 @@ public class Enseignant {
         this.idEnseignant = idEnseignant;
         this.sousModules = sousModules;
         this.utilisateur = new Utilisateur(nomEns, idEnseignant, Role.Enseignant);
+    }
+
+    public Enseignant(){
     }
 
     public String getNomEns() {
