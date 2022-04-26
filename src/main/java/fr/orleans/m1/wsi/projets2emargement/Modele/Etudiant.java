@@ -17,20 +17,20 @@ public class Etudiant {
     private List<Groupe> groupes;
     private Utilisateur utilisateur;
 
-    public Etudiant(String numEtu, String nom, String prenom, String email, List<Groupe> groupes) {
+    public Etudiant(String numEtu, String nom, String prenom, List<Groupe> groupes) {
         this.numEtu = numEtu;
         this.nom = nom;
         this.prenom = prenom;
-        this.email = email;
+        this.email = prenom+"."+nom+"@etu.univ-orleans.fr";
         this.etat = Etat.ABSENT;
         this.groupes = groupes;
         this.utilisateur = new Utilisateur(email, numEtu, Role.Etudiant);
     }
-    public Etudiant(String numEtu, String nom, String prenom, String email) {
+    public Etudiant(String numEtu, String nom, String prenom) {
         this.numEtu = numEtu;
         this.nom = nom;
         this.prenom = prenom;
-        this.email = email;
+        this.email = prenom+"."+nom+"@etu.univ-orleans.fr";
         this.etat = Etat.ABSENT;
         this.groupes = List.of();
         this.utilisateur = new Utilisateur(email, numEtu, Role.Etudiant);

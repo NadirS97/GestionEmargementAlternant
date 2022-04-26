@@ -34,10 +34,24 @@ public class EtudiantController {
 
     @PostMapping("/")
     public ResponseEntity<Etudiant> CreateEtudiant(@RequestBody Etudiant etudiant){
-        etudiant.getUtilisateur().setPassword(etudiant.getUtilisateur().getPassword());
-        facadeEtudiant.save(etudiant);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{NumEtu}").buildAndExpand(etudiant.getNumEtu()).toUri();
-        return ResponseEntity.created(location).body(etudiant);
+
+        if (    etudiant.getNumEtu()==null || etudiant.getNumEtu().isEmpty()
+                || etudiant.getNom()==null || etudiant.getNom().isEmpty()
+                || etudiant.getPrenom()==null || etudiant.getPrenom().isEmpty()
+            ){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }else{
+           // TODO: etudiant.getUtilisateur().setPassword(etudiant.getUtilisateur().getPassword()); // il faut crypter le mot de poasse
+            if (facadeEtudiant.findById(etudiant.getNumEtu()).isPresent() || facadeEtudiant.findEtudiantByEmail(etudiant.getPrenom()+"."+etudiant.getNom()+"@etu.univ-orleans.fr").isPresent()){
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }else{
+
+                Etudiant e = new Etudiant(etudiant.getNumEtu(),etudiant.getNom(),etudiant.getPrenom(),(etudiant.getGroupes()==null||etudiant.getGroupes().isEmpty())?List.of():etudiant.getGroupes());
+                facadeEtudiant.save(e);
+                URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{NumEtu}").buildAndExpand(etudiant.getNumEtu()).toUri();
+                return ResponseEntity.created(location).body(e);
+            }
+        }
     }
 
     @DeleteMapping("/{NumEtu}")
