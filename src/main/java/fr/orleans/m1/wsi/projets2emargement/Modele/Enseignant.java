@@ -11,6 +11,7 @@ public class Enseignant {
     private String idEnseignant;
     private String nomEns;
     private String prenomEns;
+    private String email;
     private List<SousModule> sousModules;
     private Utilisateur utilisateur;
 
@@ -18,8 +19,9 @@ public class Enseignant {
         this.nomEns = nomEns;
         this.prenomEns = prenomEns;
         this.idEnseignant = idEnseignant;
+        this.email = prenomEns+"."+nomEns+"@univ-orleans.fr";
         this.sousModules=List.of();
-        this.utilisateur = new Utilisateur(nomEns, idEnseignant, Role.Enseignant);
+        this.utilisateur = new Utilisateur(this.email, idEnseignant, Role.Enseignant);
 
     }
 
@@ -27,8 +29,9 @@ public class Enseignant {
         this.nomEns = nomEns;
         this.prenomEns = prenomEns;
         this.idEnseignant = idEnseignant;
+        this.email = prenomEns+"."+nomEns+"@univ-orleans.fr";
         this.sousModules = sousModules;
-        this.utilisateur = new Utilisateur(nomEns, idEnseignant, Role.Enseignant);
+        this.utilisateur = new Utilisateur(this.email, idEnseignant, Role.Enseignant);
     }
 
     public Enseignant(){
@@ -52,6 +55,18 @@ public class Enseignant {
 
     public String getIdEnseignant() {
         return idEnseignant;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 
     public void setIdEnseignant(String idEnseignant) {

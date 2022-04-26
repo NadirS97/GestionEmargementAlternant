@@ -24,7 +24,7 @@ public class Etudiant {
         this.email = prenom+"."+nom+"@etu.univ-orleans.fr";
         this.etat = Etat.ABSENT;
         this.groupes = groupes;
-        this.utilisateur = new Utilisateur(email, numEtu, Role.Etudiant);
+        this.utilisateur = new Utilisateur(this.email, numEtu, Role.Etudiant);
     }
     public Etudiant(String numEtu, String nom, String prenom) {
         this.numEtu = numEtu;
@@ -33,7 +33,7 @@ public class Etudiant {
         this.email = prenom+"."+nom+"@etu.univ-orleans.fr";
         this.etat = Etat.ABSENT;
         this.groupes = List.of();
-        this.utilisateur = new Utilisateur(email, numEtu, Role.Etudiant);
+        this.utilisateur = new Utilisateur(this.email, numEtu, Role.Etudiant);
     }
     public Etudiant() {
     }

@@ -37,6 +37,7 @@ public class EnseignatController {
 
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
              else{
+
                     Enseignant enseignant = new Enseignant(ens.getNomEns(),ens.getPrenomEns(),ens.getIdEnseignant());
                     facadeEnseignant.save(enseignant);
                     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{idEns}").buildAndExpand(ens.getIdEnseignant()).toUri();
