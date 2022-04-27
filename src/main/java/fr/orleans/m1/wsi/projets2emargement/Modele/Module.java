@@ -1,5 +1,7 @@
 package fr.orleans.m1.wsi.projets2emargement.Modele;
 
+import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeSemestre;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,10 +12,11 @@ public class Module {
     @Id
     private String code;
     private String nomM;
-    private Semestre semestre;
+    private String semestre;
     private List<SousModule> sousModules;
 
-    public Module(String code, String nomM, Semestre semestre) {
+
+    public Module(String code, String nomM, String semestre) {
         this.code = code;
         this.nomM = nomM;
         this.semestre = semestre;
@@ -47,11 +50,11 @@ public class Module {
         this.nomM = nomM;
     }
 
-    public Semestre getSemestre() {
+    public String getSemestre() {
         return semestre;
     }
 
-    public void setSemestre(Semestre semestre) {
+    public void setSemestre(String semestre) {
         this.semestre = semestre;
     }
 }

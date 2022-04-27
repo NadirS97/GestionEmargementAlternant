@@ -3,6 +3,7 @@ package fr.orleans.m1.wsi.projets2emargement.Controller;
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeModule;
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeSemestre;
 import fr.orleans.m1.wsi.projets2emargement.Modele.Module;
+import fr.orleans.m1.wsi.projets2emargement.Modele.Semestre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,18 +37,21 @@ public class ModuleContoller {
     public ResponseEntity<Module> CreateModule(@RequestBody Module module){
         if(     module.getNomM()==null || module.getNomM().isEmpty() ||
                 module.getCode()==null || module.getCode().isEmpty() ||
-                module.getSemestre().getNomS()==null || module.getSemestre().getNomS().isEmpty()
+                module.getSemestre()==null || module.getSemestre().isEmpty()
             )
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }else {
             if (facadeModule.findById(module.getCode()).isPresent()) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
-            } else if(facadeSemestre.findById(module.getSemestre().getNomS()).isEmpty()){
+            } else if(facadeSemestre.findById(module.getSemestre()).isEmpty()){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             } else{
-                Module m = new Module(module.getCode(),module.getNomM(),facadeSemestre.findById(module.getSemestre().getNomS()).get());
+                Semestre s = facadeSemestre.findById(module.getSemestre()).get();
+                Module m = new Module(module.getCode(),module.getNomM(),s.getNomS());
+                s.addModule(m);
                 facadeModule.save(m);
+                facadeSemestre.save(s);
                 URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                         .path("/{CodeMod}")
                         .buildAndExpand(m.getCode())
@@ -75,11 +79,11 @@ public class ModuleContoller {
         Optional<Module> module = facadeModule.findById(CodeMod);
         if (module.isPresent()) {
            if( m.getNomM()==null || m.getNomM().isEmpty() ||
-            m.getSemestre().getNomS()==null || m.getSemestre().getNomS().isEmpty()){
+            m.getSemestre()==null || m.getSemestre().isEmpty()){
                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
            }else{
                 module.get().setNomM(m.getNomM());
-                module.get().setSemestre(facadeSemestre.findById(m.getSemestre().getNomS()).get());
+                module.get().setSemestre(m.getSemestre());
                 facadeModule.save(module.get());
                 return ResponseEntity.ok(module.get());
            }

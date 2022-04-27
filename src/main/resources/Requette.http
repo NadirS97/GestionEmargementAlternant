@@ -40,7 +40,7 @@ POST http://localhost:8080/Sem/
 Content-Type: application/json
 
 {
-  "nomS": "S1"
+  "nomS": "S2"
 }
 
 ###
@@ -54,11 +54,9 @@ POST http://localhost:8080/Mod/
 Content-Type: application/json
 
 {
-  "code": "Code1",
-  "nomM": "Module1",
-  "semestre":{
-    "nomS": "S1"
-  }
+  "code": "CodeTest",
+  "nomM": "Test et qualite",
+  "semestre": "S2"
 }
 ###
 PUT http://localhost:8080/Mod/Code1
