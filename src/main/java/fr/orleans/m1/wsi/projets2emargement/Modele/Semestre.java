@@ -1,9 +1,13 @@
 package fr.orleans.m1.wsi.projets2emargement.Modele;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.List;
 
+@Document
 public class Semestre {
-
+    @Id
     private String nomS;
     private List<Module> modules;
 
@@ -15,6 +19,9 @@ public class Semestre {
     public Semestre(String nomS) {
         this.nomS = nomS;
         this.modules = List.of();
+    }
+
+    public Semestre() {
     }
 
     public List<Module> getModules() {

@@ -33,3 +33,40 @@ DELETE http://localhost:8080/Ens/o212121
 
 ###
 GET http://localhost:8080/Ens/
+
+
+###
+POST http://localhost:8080/Sem/
+Content-Type: application/json
+
+{
+  "nomS": "S1"
+}
+
+###
+GET http://localhost:8080/Sem/
+
+###
+GET http://localhost:8080/Mod/
+
+###
+POST http://localhost:8080/Mod/
+Content-Type: application/json
+
+{
+  "code": "Code1",
+  "nomM": "Module1",
+  "semestre":{
+    "nomS": "S1"
+  }
+}
+###
+PUT http://localhost:8080/Mod/Code1
+Content-Type: application/json
+
+{
+  "nomM": "Module3",
+  "semestre":{
+    "nomS": "S1"
+  }
+}

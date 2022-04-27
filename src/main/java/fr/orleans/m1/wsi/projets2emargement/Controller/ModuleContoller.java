@@ -1,6 +1,7 @@
 package fr.orleans.m1.wsi.projets2emargement.Controller;
 
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeModule;
+import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeSemestre;
 import fr.orleans.m1.wsi.projets2emargement.Modele.Module;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,8 @@ import java.util.Optional;
 public class ModuleContoller {
     @Autowired
     private FacadeModule facadeModule;
+    @Autowired
+    private FacadeSemestre facadeSemestre;
 
     @GetMapping("/")
     public ResponseEntity<List<Module>> GetAll(){
@@ -31,9 +34,29 @@ public class ModuleContoller {
 
     @PostMapping("/")
     public ResponseEntity<Module> CreateModule(@RequestBody Module module){
-        facadeModule.save(module);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{CodeMod}").buildAndExpand(module.getCode()).toUri();
-        return ResponseEntity.created(location).body(module);
+        if(     module.getNomM()==null || module.getNomM().isEmpty() ||
+                module.getCode()==null || module.getCode().isEmpty() ||
+                module.getSemestre().getNomS()==null || module.getSemestre().getNomS().isEmpty()
+            )
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }else {
+            if (facadeModule.findById(module.getCode()).isPresent()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            } else if(facadeSemestre.findById(module.getSemestre().getNomS()).isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            } else{
+                Module m = new Module(module.getCode(),module.getNomM(),facadeSemestre.findById(module.getSemestre().getNomS()).get());
+                facadeModule.save(m);
+                URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                        .path("/{CodeMod}")
+                        .buildAndExpand(m.getCode())
+                        .toUri();
+                return ResponseEntity.created(location).body(m);
+
+            }
+        }
+
     }
 
     @DeleteMapping("/{CodeMod}")
@@ -44,6 +67,24 @@ public class ModuleContoller {
             return ResponseEntity.ok("Element bien suprimee");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Element non trouvable");
+        }
+    }
+
+    @PutMapping("/{CodeMod}")
+    public ResponseEntity<Module> ModifyModule(@PathVariable("CodeMod") String CodeMod,@RequestBody Module m) {
+        Optional<Module> module = facadeModule.findById(CodeMod);
+        if (module.isPresent()) {
+           if( m.getNomM()==null || m.getNomM().isEmpty() ||
+            m.getSemestre().getNomS()==null || m.getSemestre().getNomS().isEmpty()){
+               return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+           }else{
+                module.get().setNomM(m.getNomM());
+                module.get().setSemestre(facadeSemestre.findById(m.getSemestre().getNomS()).get());
+                facadeModule.save(module.get());
+                return ResponseEntity.ok(module.get());
+           }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 

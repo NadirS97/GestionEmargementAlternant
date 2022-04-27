@@ -2,8 +2,10 @@ package fr.orleans.m1.wsi.projets2emargement.Controller;
 
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeEnseignant;
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeEtudiant;
+import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeSousModule;
 import fr.orleans.m1.wsi.projets2emargement.Modele.Enseignant;
 import fr.orleans.m1.wsi.projets2emargement.Modele.Etudiant;
+import fr.orleans.m1.wsi.projets2emargement.Modele.SousModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class EnseignatController {
 
     @Autowired
     private FacadeEnseignant facadeEnseignant;
+    @Autowired
+    private FacadeSousModule facadeSousModule;
 
     @GetMapping("/")
     public ResponseEntity<List<Enseignant>> GetAll(){
@@ -56,6 +60,10 @@ public class EnseignatController {
     public ResponseEntity<String> DeleteEns(@PathVariable String idEns){
         Optional<Enseignant> ens = facadeEnseignant.findById(idEns);
         return ens.map(enseignant -> {
+
+            for(Optional<SousModule> sm : facadeSousModule.findAllByEnseignant(ens.get())){
+                (sm.get()).setEnseignant(null);
+            }
             facadeEnseignant.deleteById(idEns);
             return ResponseEntity.ok().body("Element a ete bien suprimee");
         }).orElseGet(() ->  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Element non trouvable"));
