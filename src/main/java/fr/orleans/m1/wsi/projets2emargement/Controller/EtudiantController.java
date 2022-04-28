@@ -48,7 +48,7 @@ public class EtudiantController {
 
                 Etudiant e = new Etudiant(etudiant.getNumEtu(),etudiant.getNom(),etudiant.getPrenom(),(etudiant.getGroupes()==null||etudiant.getGroupes().isEmpty())?List.of():etudiant.getGroupes());
                 facadeEtudiant.save(e);
-                URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{NumEtu}").buildAndExpand(etudiant.getNumEtu()).toUri();
+                URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{NumEtu}").buildAndExpand(e.getNumEtu()).toUri();
                 return ResponseEntity.created(location).body(e);
             }
         }

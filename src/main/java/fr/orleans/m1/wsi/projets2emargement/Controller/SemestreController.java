@@ -65,7 +65,7 @@ public class SemestreController {
                 facadeModule.save(m.get());
             }
             facadeSemestre.deleteById(nomSemestre);
-            return ResponseEntity.ok("Element bien suprimee");
+            return ResponseEntity.ok("Element bien suprime");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Element non trouvable");
         }

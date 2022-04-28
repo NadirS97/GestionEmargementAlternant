@@ -1,10 +1,8 @@
 package fr.orleans.m1.wsi.projets2emargement.Controller;
 
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeEnseignant;
-import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeEtudiant;
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeSousModule;
 import fr.orleans.m1.wsi.projets2emargement.Modele.Enseignant;
-import fr.orleans.m1.wsi.projets2emargement.Modele.Etudiant;
 import fr.orleans.m1.wsi.projets2emargement.Modele.SousModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/Ens")
-public class EnseignatController {
+public class EnseignantController {
 
     @Autowired
     private FacadeEnseignant facadeEnseignant;
@@ -65,7 +63,7 @@ public class EnseignatController {
                 (sm.get()).setEnseignant(null);
             }
             facadeEnseignant.deleteById(idEns);
-            return ResponseEntity.ok().body("Element a ete bien suprimee");
+            return ResponseEntity.ok().body("Element a ete bien suprimé");
         }).orElseGet(() ->  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Element non trouvable"));
     }
 

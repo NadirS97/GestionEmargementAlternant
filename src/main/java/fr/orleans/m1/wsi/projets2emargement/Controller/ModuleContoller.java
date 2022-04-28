@@ -68,7 +68,7 @@ public class ModuleContoller {
         Optional<Module> module = facadeModule.findById(CodeMod);
         if (module.isPresent()) {
             facadeModule.deleteById(CodeMod);
-            return ResponseEntity.ok("Element bien suprimee");
+            return ResponseEntity.ok("Element bien suprime");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Element non trouvable");
         }
