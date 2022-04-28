@@ -1,6 +1,8 @@
 package fr.orleans.m1.wsi.projets2emargement.Controller;
 
+import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeModule;
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeSemestre;
+import fr.orleans.m1.wsi.projets2emargement.Modele.Module;
 import fr.orleans.m1.wsi.projets2emargement.Modele.Semestre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,9 @@ public class SemestreController {
 
     @Autowired
     private FacadeSemestre facadeSemestre;
+
+    @Autowired
+    private FacadeModule facadeModule;
 
     @GetMapping("/")
     public ResponseEntity<List<Semestre>> GetAll(){
@@ -55,6 +60,10 @@ public class SemestreController {
     public ResponseEntity<String> DeleteSemestre(@PathVariable("nomSemestre") String nomSemestre) {
         Optional<Semestre> semestre = facadeSemestre.findById(nomSemestre);
         if (semestre.isPresent()) {
+            for(Optional<Module> m : facadeModule.findBySemestre(nomSemestre)){
+                m.get().setSemestre("");
+                facadeModule.save(m.get());
+            }
             facadeSemestre.deleteById(nomSemestre);
             return ResponseEntity.ok("Element bien suprimee");
         } else {

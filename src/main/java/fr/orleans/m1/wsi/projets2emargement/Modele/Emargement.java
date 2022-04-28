@@ -1,5 +1,8 @@
 package fr.orleans.m1.wsi.projets2emargement.Modele;
 
+import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeGroupe;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,6 +15,8 @@ public class Emargement {
     private List<Etudiant> etudiantsAbsents;
     private List<Etudiant> etudiantsPresents;
     private EtatEmargement etatEmargement;
+    @Autowired
+    FacadeGroupe facadeGroupe;
 
     // TODO QR CODE
 
@@ -21,7 +26,7 @@ public class Emargement {
         this.heureDebut = heureDebut;
         this.heureFin = heureFin;
         this.sousModule = sousModule;
-        this.etudiantsAbsents = sousModule.getGroupe().getEtudiants();
+        this.etudiantsAbsents = facadeGroupe.findById(sousModule.getGroupe()).get().getEtudiants();
         this.etudiantsPresents = List.of();
         this.etatEmargement = EtatEmargement.Ouvert;
     }
@@ -31,7 +36,7 @@ public class Emargement {
         this.heureDebut = LocalDateTime.now();
         this.heureFin = heureFin;
         this.sousModule = sousModule;
-        this.etudiantsAbsents = sousModule.getGroupe().getEtudiants();
+        this.etudiantsAbsents = facadeGroupe.findById(sousModule.getGroupe()).get().getEtudiants();
         this.etudiantsPresents = List.of();
         this.etatEmargement = EtatEmargement.Ouvert;
     }

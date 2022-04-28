@@ -1,18 +1,20 @@
 package fr.orleans.m1.wsi.projets2emargement.Modele;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.List;
 
 public class SousModule {
-
+    @Id
     private String nomSM;
     private Module module;
     private TypeCours typeCours;
-    private Groupe groupe;
+    private String groupe;
     private Enseignant enseignant;
 
    //ENS
 
-    public SousModule(String nomSM, Module module, TypeCours typeCours, Groupe groupe ,Enseignant enseignant) {
+    public SousModule(String nomSM, Module module, TypeCours typeCours, String groupe ,Enseignant enseignant) {
         this.nomSM = nomSM;
         this.module = module;
         this.typeCours = typeCours;
@@ -44,11 +46,11 @@ public class SousModule {
         this.typeCours = typeCours;
     }
 
-    public Groupe getGroupe() {
+    public String getGroupe() {
         return groupe;
     }
 
-    public void setGroupe(Groupe groupe) {
+    public void setGroupe(String groupe) {
         this.groupe = groupe;
     }
 

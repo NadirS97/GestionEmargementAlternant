@@ -47,6 +47,10 @@ Content-Type: application/json
 GET http://localhost:8080/Sem/
 
 ###
+DELETE http://localhost:8080/Sem/S2
+
+
+###
 GET http://localhost:8080/Mod/
 
 ###
