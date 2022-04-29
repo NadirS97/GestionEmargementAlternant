@@ -1,13 +1,13 @@
-GET http://localhost:8080/Etu/
+GET http://localhost:8080/etudiant/
 
 ###
-GET http://localhost:8080/Etu/o212121
+GET http://localhost:8080/etudiant/o212121
 
 ###
-DELETE http://localhost:8080/Etu/o1234
+DELETE http://localhost:8080/etudiant/o1234
 
 ###
-POST http://localhost:8080/Etu/
+POST http://localhost:8080/etudiant/
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/Ens/
+POST http://localhost:8080/enseignant/
 Content-Type: application/json
 
 {
@@ -26,17 +26,17 @@ Content-Type: application/json
   "prenomEns": "Nom12"
 }
 ###
-GET http://localhost:8080/Ens/o212121
+GET http://localhost:8080/enseignant/o212121
 
 ###
-DELETE http://localhost:8080/Ens/o212121
+DELETE http://localhost:8080/enseignant/o212121
 
 ###
-GET http://localhost:8080/Ens/
+GET http://localhost:8080/enseignant/
 
 
 ###
-POST http://localhost:8080/Sem/
+POST http://localhost:8080/semestre/
 Content-Type: application/json
 
 {
@@ -44,17 +44,17 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/Sem/
+GET http://localhost:8080/semestre/
 
 ###
-DELETE http://localhost:8080/Sem/S2
+DELETE http://localhost:8080/semestre/S2
 
 
 ###
-GET http://localhost:8080/Mod/
+GET http://localhost:8080/module/
 
 ###
-POST http://localhost:8080/Mod/
+POST http://localhost:8080/module/
 Content-Type: application/json
 
 {
@@ -63,7 +63,7 @@ Content-Type: application/json
   "semestre": "S2"
 }
 ###
-PUT http://localhost:8080/Mod/Code1
+PUT http://localhost:8080/module/Code1
 Content-Type: application/json
 
 {

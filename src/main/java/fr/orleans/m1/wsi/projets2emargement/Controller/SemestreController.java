@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/Sem")
+@RequestMapping("/semestre")
 public class SemestreController {
 
     @Autowired
@@ -65,9 +65,9 @@ public class SemestreController {
                 facadeModule.save(m.get());
             }
             facadeSemestre.deleteById(nomSemestre);
-            return ResponseEntity.ok("Element bien suprime");
+            return ResponseEntity.ok("Le semestre a bien été supprimé.");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Element non trouvable");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Le semestre est introuvable.");
         }
     }
 

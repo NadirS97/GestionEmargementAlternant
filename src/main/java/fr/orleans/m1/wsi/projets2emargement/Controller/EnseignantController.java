@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/Ens")
+@RequestMapping("/enseignant")
 public class EnseignantController {
 
     @Autowired
@@ -63,8 +63,8 @@ public class EnseignantController {
                 (sm.get()).setEnseignant(null);
             }
             facadeEnseignant.deleteById(idEns);
-            return ResponseEntity.ok().body("Element a ete bien suprimé");
-        }).orElseGet(() ->  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Element non trouvable"));
+            return ResponseEntity.ok().body("L'enseignant a bien été supprimé.");
+        }).orElseGet(() ->  ResponseEntity.status(HttpStatus.NOT_FOUND).body("L'enseignant est introuvable."));
     }
 
 }

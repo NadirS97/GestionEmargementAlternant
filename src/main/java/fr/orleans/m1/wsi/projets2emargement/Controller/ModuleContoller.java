@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/Mod")
+@RequestMapping("/module")
 public class ModuleContoller {
     @Autowired
     private FacadeModule facadeModule;
@@ -68,9 +68,9 @@ public class ModuleContoller {
         Optional<Module> module = facadeModule.findById(CodeMod);
         if (module.isPresent()) {
             facadeModule.deleteById(CodeMod);
-            return ResponseEntity.ok("Element bien suprime");
+            return ResponseEntity.ok("Le module a bien été supprimé.");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Element non trouvable");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Le module est introuvable.");
         }
     }
 

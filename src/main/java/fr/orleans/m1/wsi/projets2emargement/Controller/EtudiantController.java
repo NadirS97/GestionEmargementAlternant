@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/Etu")
+@RequestMapping("/etudiant")
 public class EtudiantController {
 
    // private static List<Etudiant> etudiants= new ArrayList<>();
@@ -59,9 +59,9 @@ public class EtudiantController {
         Optional<Etudiant> etudiant = facadeEtudiant.findById(numEtu);
         if (etudiant.isPresent()) {
             facadeEtudiant.deleteById(numEtu);
-            return ResponseEntity.ok("Element bien suprimee");
+            return ResponseEntity.ok("L'étudiant a bien été supprimé.");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Element non trouvable");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("L'étudiant est introuvable.");
         }
     }
 
