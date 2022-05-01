@@ -24,6 +24,11 @@ public class Groupe {
         this.sousModules = List.of();
     }
 
+    public Groupe() {
+        this.etudiants = List.of();
+        this.sousModules = List.of();
+    }
+
     public List<SousModule> getSousModules() {
         return sousModules;
     }

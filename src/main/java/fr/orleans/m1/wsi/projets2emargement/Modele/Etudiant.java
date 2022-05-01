@@ -14,10 +14,10 @@ public class Etudiant {
     private String prenom;
     private String email;
     private Etat etat;
-    private List<Groupe> groupes;
+    private List<String> groupes;
     private Utilisateur utilisateur;
 
-    public Etudiant(String numEtu, String nom, String prenom, List<Groupe> groupes) {
+    public Etudiant(String numEtu, String nom, String prenom, List<String> groupes) {
         this.numEtu = numEtu;
         this.nom = nom;
         this.prenom = prenom;
@@ -78,15 +78,15 @@ public class Etudiant {
         this.etat = etat;
     }
 
-    public List<Groupe> getGroupes() {
+    public List<String> getGroupes() {
         return groupes;
     }
 
-    public void setGroupes(List<Groupe> groupes) {
+    public void setGroupes(List<String> groupes) {
         this.groupes = groupes;
     }
 
-    public void addGroupe(Groupe groupe) {
+    public void addGroupe(String groupe) {
         this.groupes.add(groupe);
     }
 

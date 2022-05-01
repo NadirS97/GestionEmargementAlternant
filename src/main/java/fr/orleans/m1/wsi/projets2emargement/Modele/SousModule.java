@@ -7,14 +7,17 @@ import java.util.List;
 public class SousModule {
     @Id
     private String nomSM;
-    private Module module;
+    private String module;
     private TypeCours typeCours;
     private String groupe;
-    private Enseignant enseignant;
+    private String enseignant;
 
    //ENS
 
-    public SousModule(String nomSM, Module module, TypeCours typeCours, String groupe ,Enseignant enseignant) {
+    public SousModule() {
+    }
+
+    public SousModule(String nomSM, String module, TypeCours typeCours, String groupe , String enseignant) {
         this.nomSM = nomSM;
         this.module = module;
         this.typeCours = typeCours;
@@ -30,11 +33,11 @@ public class SousModule {
         this.nomSM = nomSM;
     }
 
-    public Module getModule() {
+    public String getModule() {
         return module;
     }
 
-    public void setModule(Module module) {
+    public void setModule(String module) {
         this.module = module;
     }
 
@@ -54,11 +57,11 @@ public class SousModule {
         this.groupe = groupe;
     }
 
-    public Enseignant getEnseignant() {
+    public String getEnseignant() {
         return enseignant;
     }
 
-    public void setEnseignant(Enseignant enseignant) {
+    public void setEnseignant(String enseignant) {
         this.enseignant = enseignant;
     }
 }

@@ -80,6 +80,9 @@ public class Enseignant {
     public void setSousModules(List<SousModule> sousModules) {
         this.sousModules = sousModules;
     }
+    public void addSousModule(SousModule sousModule) {
+        this.sousModules.add(sousModule);
+    }
 
     public Utilisateur getUtilisateur() { return utilisateur; }
 

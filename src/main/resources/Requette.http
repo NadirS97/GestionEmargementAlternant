@@ -72,3 +72,34 @@ Content-Type: application/json
     "nomS": "S1"
   }
 }
+
+###
+POST http://localhost:8080/SMod/
+Content-Type: application/json
+
+{
+  "nomSM": "Module4",
+  "module": "CodeTest",
+  "typeCours": "CM",
+  "groupe": "Module4",
+  "enseignant": "o212121"
+}
+###
+GET http://localhost:8080/groupe/
+
+
+###
+POST http://localhost:8080/groupe/
+Content-Type: application/json
+
+{
+  "nomG": "Module4",
+  "etudiants": [
+    {
+      "numEtu": "o23312"
+    },
+    {
+      "numEtu": "o212121"
+    }
+  ]
+}
