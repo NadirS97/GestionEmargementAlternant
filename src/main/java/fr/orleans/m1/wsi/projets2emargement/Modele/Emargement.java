@@ -2,12 +2,16 @@ package fr.orleans.m1.wsi.projets2emargement.Modele;
 
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeGroupe;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
+@Document
 public class Emargement {
-
+    @Id
     private String idEmargement;
     private LocalDateTime heureDebut;
     private LocalDateTime heureFin;
@@ -15,28 +19,32 @@ public class Emargement {
     private List<Etudiant> etudiantsAbsents;
     private List<Etudiant> etudiantsPresents;
     private EtatEmargement etatEmargement;
-    @Autowired
-    FacadeGroupe facadeGroupe;
+    private  Salle salle;
+
 
     // TODO QR CODE
 
+    public Emargement(){}
 
-    public Emargement(String idEmargement,LocalDateTime heureDebut, LocalDateTime heureFin, SousModule sousModule) {
-        this.idEmargement = idEmargement;
+    public Emargement(LocalDateTime heureDebut, LocalDateTime heureFin, SousModule sousModule,Salle salle,List<Etudiant> etudiantsAbsents) {
+        this.idEmargement= UUID.randomUUID().toString();
         this.heureDebut = heureDebut;
         this.heureFin = heureFin;
         this.sousModule = sousModule;
-        this.etudiantsAbsents = facadeGroupe.findById(sousModule.getGroupe()).get().getEtudiants();
+        this.salle=salle;
+        this.etudiantsAbsents = etudiantsAbsents;
         this.etudiantsPresents = List.of();
         this.etatEmargement = EtatEmargement.Ouvert;
+
     }
 
-    public Emargement(String idEmargement, LocalDateTime heureFin, SousModule sousModule) {
-        this.idEmargement = idEmargement;
+    public Emargement( LocalDateTime heureFin, SousModule sousModule,Salle salle,List<Etudiant> etudiantsAbsents) {
+        this.idEmargement= UUID.randomUUID().toString();
         this.heureDebut = LocalDateTime.now();
         this.heureFin = heureFin;
         this.sousModule = sousModule;
-        this.etudiantsAbsents = facadeGroupe.findById(sousModule.getGroupe()).get().getEtudiants();
+        this.salle=salle;
+        this.etudiantsAbsents = etudiantsAbsents;
         this.etudiantsPresents = List.of();
         this.etatEmargement = EtatEmargement.Ouvert;
     }
@@ -95,5 +103,13 @@ public class Emargement {
 
     public void setEtatEmargement(EtatEmargement etatEmargement) {
         this.etatEmargement = etatEmargement;
+    }
+
+    public Salle getSalle() {
+        return salle;
+    }
+
+    public void setSalle(Salle salle) {
+        this.salle = salle;
     }
 }

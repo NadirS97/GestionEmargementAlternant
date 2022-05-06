@@ -17,9 +17,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/groupe")
 public class GroupeController {
-
-
-
     @Autowired
     private FacadeGroupe facadeGroupe;
 
@@ -66,21 +63,5 @@ public class GroupeController {
         Optional<Groupe> g=facadeGroupe.findById(nomG);
         return g.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-//    @DeleteMapping("/{NomG}")
-//    public ResponseEntity<String> DeleteSemestre(@PathVariable("NomG") String NomG) {
-//        Optional<Groupe> g = facadeGroupe.findById(NomG);
-//        if (g.isPresent()) {
-//            for(Optional<Module> m : facadeModule.findBySemestre(nomSemestre)){
-//                m.get().setSemestre("");
-//                facadeModule.save(m.get());
-//            }
-//            facadeSemestre.deleteById(nomSemestre);
-//            return ResponseEntity.ok("Element bien suprime");
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Element non trouvable");
-//        }
-//    }
-
 
 }
