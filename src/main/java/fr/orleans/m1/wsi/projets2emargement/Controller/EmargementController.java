@@ -1,21 +1,18 @@
 package fr.orleans.m1.wsi.projets2emargement.Controller;
 
-import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeEmargement;
-import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeGroupe;
-import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeSalle;
-import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeSousModule;
+import fr.orleans.m1.wsi.projets2emargement.Facade.*;
 import fr.orleans.m1.wsi.projets2emargement.Modele.Emargement;
+import fr.orleans.m1.wsi.projets2emargement.Modele.QRCodeGenerator;
 import fr.orleans.m1.wsi.projets2emargement.Modele.Salle;
 import fr.orleans.m1.wsi.projets2emargement.Modele.SousModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.awt.image.BufferedImage;
 import java.net.URI;
 
 @RestController
@@ -27,6 +24,8 @@ public class EmargementController {
     FacadeSousModule facadeSousModule;
     @Autowired
     FacadeSalle facadeSalle;
+    @Autowired
+    FacadeEtudiant facadeEtudiant;
     @Autowired
     FacadeGroupe facadeGroupe;
     @PostMapping("/")
@@ -43,7 +42,7 @@ public class EmargementController {
             }else{
                 SousModule sm= facadeSousModule.findById(em.getSousModule().getNomSM()).get();
                 Salle s= facadeSalle.findById(em.getSalle().getNomSalle()).get();
-                Emargement emm = new Emargement(em.getHeureDebut(),em.getHeureFin(),sm,em.getSalle(),facadeGroupe.findById(sm.getGroupe()).get().getEtudiants());
+                Emargement emm = new Emargement(em.getHeureDebut(),em.getHeureFin(),sm,s,facadeGroupe.findById(sm.getGroupe()).get().getEtudiants());
                 facadeEmargement.save(emm);
                 URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                         .path("/{id}")
@@ -52,6 +51,20 @@ public class EmargementController {
                 return ResponseEntity.created(location).body(emm);
             }
         }
+    }
+
+
+    @GetMapping(value = "/{id}", produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<BufferedImage> getQR(@PathVariable("id") String id,String idEtu) throws Exception {
+        return ResponseEntity.ok(QRCodeGenerator.generateQRCodeImage("http://localhost:8080/emargement/168fd113-5370-4a35-8046-1df0f051c1b8/o23312"));
+    }
+
+    @GetMapping( "/{id}/{idEtu}")
+    public ResponseEntity<Emargement> ExecuteQR(@PathVariable("id") String id,@PathVariable("idEtu") String idEtu) {
+        Emargement em = facadeEmargement.findById(id).get();
+        em.addEtudiantsPresents(facadeEtudiant.findById(idEtu).get());
+        facadeEmargement.save(em);
+        return ResponseEntity.ok().body(em);
     }
 
 }

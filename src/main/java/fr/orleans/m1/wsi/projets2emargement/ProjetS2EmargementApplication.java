@@ -11,41 +11,4 @@ public class ProjetS2EmargementApplication {
     }
 
 
-//    @Bean
-//    CommandLineRunner runner(FacadeEtudiant facadeEtudiant, MongoTemplate mongoTemplate, FacadeGroupe facadeGroup){
-//        return args -> {
-//            Etudiant etudiant = new Etudiant(
-//                    "o1234",
-//                    "Nom1",
-//                    "Prenom1",
-//                    "example@gmail.com"
-//            );
-//            facadeEtudiant.insert(etudiant);
-//
-//            Groupe group = new Groupe(
-//                    "ALTTP1",
-//                    List.of(etudiant)
-//            );
-//            facadeGroup.insert(group);
-//        };
-//    }
-//
-//
-//    @Bean
-//    CommandLineRunner runner(MongoTemplate mongoTemplate, FacadeEnseignant facadeEnseignant){
-//        return args -> {
-//            Enseignant enseignant = new Enseignant(
-//                    "NomEns1",
-//                    "PrenomEns1",
-//                    "o1523"
-//            );
-//
-//            facadeEnseignant.insert(enseignant);
-//
-//        };
-//    }
-
-
-
-
 }

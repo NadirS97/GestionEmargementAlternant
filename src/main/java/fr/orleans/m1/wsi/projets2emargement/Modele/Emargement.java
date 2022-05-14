@@ -1,7 +1,5 @@
 package fr.orleans.m1.wsi.projets2emargement.Modele;
 
-import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeGroupe;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -21,8 +19,6 @@ public class Emargement {
     private EtatEmargement etatEmargement;
     private  Salle salle;
 
-
-    // TODO QR CODE
 
     public Emargement(){}
 
@@ -95,6 +91,9 @@ public class Emargement {
 
     public void setEtudiantsPresents(List<Etudiant> etudiantsPresents) {
         this.etudiantsPresents = etudiantsPresents;
+    }
+    public void addEtudiantsPresents(Etudiant etudiantPresent) {
+        this.etudiantsPresents.add(etudiantPresent);
     }
 
     public EtatEmargement getEtatEmargement() {
