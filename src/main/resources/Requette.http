@@ -125,6 +125,6 @@ Content-Type: application/json
     "nomSM": "Module4"
   },
   "salle": {
-    "nomSalle": "E04"
+    "nomSalle": "E07"
   }
 }
