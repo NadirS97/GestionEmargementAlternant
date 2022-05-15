@@ -25,18 +25,18 @@ public class SemestreController {
     private FacadeModule facadeModule;
 
     @GetMapping("/")
-    public ResponseEntity<List<Semestre>> GetAll(){
+    public ResponseEntity<List<Semestre>> getAllSemestre(){
         return ResponseEntity.ok().body(facadeSemestre.findAll());
     }
 
     @GetMapping("/{nomSemestre}")
-    public ResponseEntity<Semestre> GetSemestreByName(@PathVariable("nomSemestre") String nomSemestre){
+    public ResponseEntity<Semestre> getSemestreByName(@PathVariable("nomSemestre") String nomSemestre){
         Optional<Semestre> semestre=facadeSemestre.findById(nomSemestre);
         return semestre.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/")
-    public ResponseEntity<Semestre> CreateSemestre(@RequestBody Semestre semestre){
+    public ResponseEntity<Semestre> creerSemestre(@RequestBody Semestre semestre){
 
         if(semestre.getNomS()==null || semestre.getNomS().isEmpty())
         {
@@ -57,7 +57,7 @@ public class SemestreController {
     }
 
     @DeleteMapping("/{nomSemestre}")
-    public ResponseEntity<String> DeleteSemestre(@PathVariable("nomSemestre") String nomSemestre) {
+    public ResponseEntity<String> supprimerSemestre(@PathVariable("nomSemestre") String nomSemestre) {
         Optional<Semestre> semestre = facadeSemestre.findById(nomSemestre);
         if (semestre.isPresent()) {
             for(Optional<Module> m : facadeModule.findBySemestre(nomSemestre)){

@@ -27,18 +27,18 @@ public class SousModuleController {
     private FacadeGroupe facadeGroupe;
 
     @GetMapping("/")
-    public ResponseEntity<List<SousModule>> GetAll(){
+    public ResponseEntity<List<SousModule>> getAllSousModule(){
         return ResponseEntity.ok().body(facadeSousModule.findAll());
     }
 
     @GetMapping("/{NomSMod}")
-    public ResponseEntity<SousModule> GetModuleByCode(@PathVariable("NomSMod") String nomSMod){
+    public ResponseEntity<SousModule> getModuleByCode(@PathVariable("NomSMod") String nomSMod){
         Optional<SousModule> Sousmodule=facadeSousModule.findById(nomSMod);
         return Sousmodule.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/")
-    public ResponseEntity<SousModule> CreateModule(@RequestBody SousModule sousModule){
+    public ResponseEntity<SousModule> creerModule(@RequestBody SousModule sousModule){
 
 
         if(     sousModule.getNomSM()==null || sousModule.getNomSM().isEmpty() ||

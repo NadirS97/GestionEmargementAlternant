@@ -22,18 +22,18 @@ public class EtudiantController {
     private FacadeEtudiant facadeEtudiant;
 
     @GetMapping("/")
-    public ResponseEntity<List<Etudiant>> GetAll(){
+    public ResponseEntity<List<Etudiant>> getAllEtudiant(){
         return ResponseEntity.ok().body(facadeEtudiant.findAll());
     }
 
     @GetMapping("/{NumEtu}")
-    public ResponseEntity<Etudiant> GetEtudiantByNumEtu(@PathVariable("NumEtu") String numEtu){
-        Optional<Etudiant> etudiant=facadeEtudiant.findById(numEtu);
+    public ResponseEntity<Etudiant> getEtudiantByNumEtudiant(@PathVariable("NumEtu") String numEtu){
+        Optional<Etudiant> etudiant =facadeEtudiant.findById(numEtu);
         return etudiant.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/")
-    public ResponseEntity<Etudiant> CreateEtudiant(@RequestBody Etudiant etudiant){
+    public ResponseEntity<Etudiant> creerEtudiant(@RequestBody Etudiant etudiant){
 
         if (    etudiant.getNumEtu()==null || etudiant.getNumEtu().isEmpty()
                 || etudiant.getNom()==null || etudiant.getNom().isEmpty()
@@ -55,7 +55,7 @@ public class EtudiantController {
     }
 
     @DeleteMapping("/{NumEtu}")
-    public ResponseEntity<String> DeleteEtudiant(@PathVariable("NumEtu") String numEtu) {
+    public ResponseEntity<String> supprimerEtudiant(@PathVariable("NumEtu") String numEtu) {
         Optional<Etudiant> etudiant = facadeEtudiant.findById(numEtu);
         if (etudiant.isPresent()) {
             facadeEtudiant.deleteById(numEtu);

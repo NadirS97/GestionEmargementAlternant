@@ -19,12 +19,12 @@ public class SalleController  {
     FacadeSalle facadeSalle;
 
     @GetMapping("/")
-    public ResponseEntity<List<Salle>> GetAll(){
+    public ResponseEntity<List<Salle>> getAllSalle(){
         return ResponseEntity.ok().body(facadeSalle.findAll());
     }
 
     @PostMapping("/")
-    public ResponseEntity<Salle> CreateModule(@RequestBody Salle salle){
+    public ResponseEntity<Salle> creerSalle(@RequestBody Salle salle){
 
         if(salle.getNomSalle()==null || salle.getNomSalle().trim().isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -44,7 +44,7 @@ public class SalleController  {
     }
 
     @GetMapping("/{salle}")
-    public ResponseEntity<Salle> GetSalle(@PathVariable("salle") String salle){
+    public ResponseEntity<Salle> getSalle(@PathVariable("salle") String salle){
         Optional<Salle> s=facadeSalle.findById(salle);
         return s.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }

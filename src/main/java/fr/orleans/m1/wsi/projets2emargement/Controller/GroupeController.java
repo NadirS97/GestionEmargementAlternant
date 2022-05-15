@@ -24,12 +24,12 @@ public class GroupeController {
     private FacadeEtudiant facadeEtudiant;
 
     @GetMapping("/")
-    public ResponseEntity<List<Groupe>> GetAll(){
+    public ResponseEntity<List<Groupe>> getAllGroupe(){
         return ResponseEntity.ok().body(facadeGroupe.findAll());
     }
 
     @PostMapping("/")
-    public ResponseEntity<Groupe> CreateSemestre(@RequestBody Groupe groupe){
+    public ResponseEntity<Groupe> creerGroupe(@RequestBody Groupe groupe){
         if(groupe.getNomG()==null || groupe.getNomG().isEmpty())
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -59,7 +59,7 @@ public class GroupeController {
     }
 
     @GetMapping("/{NomG}")
-    public ResponseEntity<Groupe> GetSemestreByName(@PathVariable("NomG") String nomG){
+    public ResponseEntity<Groupe> getGroupeByName(@PathVariable("NomG") String nomG){
         Optional<Groupe> g=facadeGroupe.findById(nomG);
         return g.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }

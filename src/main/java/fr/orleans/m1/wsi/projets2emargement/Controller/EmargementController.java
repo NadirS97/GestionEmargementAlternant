@@ -1,10 +1,7 @@
 package fr.orleans.m1.wsi.projets2emargement.Controller;
 
 import fr.orleans.m1.wsi.projets2emargement.Facade.*;
-import fr.orleans.m1.wsi.projets2emargement.Modele.Emargement;
-import fr.orleans.m1.wsi.projets2emargement.Modele.QRCodeGenerator;
-import fr.orleans.m1.wsi.projets2emargement.Modele.Salle;
-import fr.orleans.m1.wsi.projets2emargement.Modele.SousModule;
+import fr.orleans.m1.wsi.projets2emargement.Modele.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,8 +25,9 @@ public class EmargementController {
     FacadeEtudiant facadeEtudiant;
     @Autowired
     FacadeGroupe facadeGroupe;
+
     @PostMapping("/")
-    public ResponseEntity<Emargement> addEmg(@RequestBody Emargement em) {
+    public ResponseEntity<Emargement> creerEmargement(@RequestBody Emargement em) {
         if(em.getHeureDebut() == null || em.getHeureFin() == null || em.getSalle().getNomSalle() == null || em.getSalle().getNomSalle().isEmpty() || em.getSousModule().getNomSM() == null || em.getSousModule().getNomSM().isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         if(facadeSalle.findById(em.getSalle().getNomSalle()).isEmpty())
@@ -54,6 +52,12 @@ public class EmargementController {
             }
         }
     }
+
+//    @GetMapping("/clos")
+//    public ResponseEntity<Emargement[]> getEmargementClos(){
+//
+//    }
+
 
 
     @GetMapping(value = "/{id}", produces = MediaType.IMAGE_PNG_VALUE)

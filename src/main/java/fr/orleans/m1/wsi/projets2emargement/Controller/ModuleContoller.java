@@ -23,18 +23,18 @@ public class ModuleContoller {
     private FacadeSemestre facadeSemestre;
 
     @GetMapping("/")
-    public ResponseEntity<List<Module>> GetAll(){
+    public ResponseEntity<List<Module>> getAllModule(){
         return ResponseEntity.ok().body(facadeModule.findAll());
     }
 
     @GetMapping("/{CodeMod}")
-    public ResponseEntity<Module> GetModuleByCode(@PathVariable("CodeMod") String CodeMod){
+    public ResponseEntity<Module> getModuleByCode(@PathVariable("CodeMod") String CodeMod){
         Optional<Module> module=facadeModule.findById(CodeMod);
         return module.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/")
-    public ResponseEntity<Module> CreateModule(@RequestBody Module module){
+    public ResponseEntity<Module> creerModule(@RequestBody Module module){
         if(     module.getNomM()==null || module.getNomM().isEmpty() ||
                 module.getCode()==null || module.getCode().isEmpty() ||
                 module.getSemestre()==null || module.getSemestre().isEmpty()
@@ -64,7 +64,7 @@ public class ModuleContoller {
     }
 
     @DeleteMapping("/{CodeMod}")
-    public ResponseEntity<String> DeleteModule(@PathVariable("CodeMod") String CodeMod) {
+    public ResponseEntity<String> supprimerModule(@PathVariable("CodeMod") String CodeMod) {
         Optional<Module> module = facadeModule.findById(CodeMod);
         if (module.isPresent()) {
             facadeModule.deleteById(CodeMod);
@@ -75,7 +75,7 @@ public class ModuleContoller {
     }
 
     @PutMapping("/{CodeMod}")
-    public ResponseEntity<Module> ModifyModule(@PathVariable("CodeMod") String CodeMod,@RequestBody Module m) {
+    public ResponseEntity<Module> modifierModule(@PathVariable("CodeMod") String CodeMod,@RequestBody Module m) {
         Optional<Module> module = facadeModule.findById(CodeMod);
         if (module.isPresent()) {
            if( m.getNomM()==null || m.getNomM().isEmpty() ||

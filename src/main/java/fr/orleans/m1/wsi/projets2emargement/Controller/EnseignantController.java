@@ -24,12 +24,12 @@ public class EnseignantController {
     private FacadeSousModule facadeSousModule;
 
     @GetMapping("/")
-    public ResponseEntity<List<Enseignant>> GetAll(){
+    public ResponseEntity<List<Enseignant>> getAllEnseignant(){
         return ResponseEntity.ok().body(facadeEnseignant.findAll());
     }
 
     @PostMapping("/")
-    public ResponseEntity<Enseignant> AddEns(@RequestBody Enseignant ens){
+    public ResponseEntity<Enseignant> creerEnseignant(@RequestBody Enseignant ens){
         if(facadeEnseignant.findById(ens.getIdEnseignant()).isPresent()){
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }else{
@@ -49,13 +49,13 @@ public class EnseignantController {
     }
 
     @GetMapping("/{idEns}")
-    public ResponseEntity<Enseignant> GetEns(@PathVariable String idEns){
+    public ResponseEntity<Enseignant> getEnseignant(@PathVariable String idEns){
         Optional<Enseignant> ens = facadeEnseignant.findById(idEns);
         return ens.map(enseignant -> ResponseEntity.ok().body(enseignant)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @DeleteMapping("/{idEns}")
-    public ResponseEntity<String> DeleteEns(@PathVariable String idEns){
+    public ResponseEntity<String> supprimerEnseignant(@PathVariable String idEns){
         Optional<Enseignant> ens = facadeEnseignant.findById(idEns);
         return ens.map(enseignant -> {
 
