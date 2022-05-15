@@ -125,17 +125,17 @@ www.localhost:8080/emargement/{idEmargement}/absent
 ---
 **Fonctionnalités obligatoires:**
 
-| Fonctionnalités                                                      | URI                                | Méthode | 
-|:---------------------------------------------------------------------|------------------------------------|---------|
-| Connexion                                                            | /emargement                        | POST    | 
-| Emargement d'un etudiant                                             | /emargement/{idEmargement}         | PUT     | 
-| Cloture d'un emargement par un enseignant                            | /emargement/{idEmargement}         | PUT     |
-| Liste de tous les emargements clos par un personnel administratif    | /emargement/clos                   | GET     |
-| Liste de tous les emargements ouverts par un personnel administratif | /emargement/ouverts                | GET     |
-| Consultation de l'emargement par un personnel administratif          | /emargement/{idEmargement}         | GET     |
-| Creation d'un nouvel emargement par un personnel administratif       | /emargement/                       | POST    | 
-| Liste de tous les etudiants presents par un personnel administratif  | /emargement/{idEmargement}/present | GET     |
-| Liste de tous les etudiants absents par un personnel administratif   | /emargement/{idEmargement}/absent  | GET     |            
+| Fonctionnalités                                                      | URI                                | Méthode | Rôle         |
+|:---------------------------------------------------------------------|------------------------------------|---------|--------------|
+| Connexion                                                            | /emargement                        | POST    | All          |
+| Emargement d'un etudiant                                             | /emargement/{idEmargement}         | PUT     | Etudiant     |
+| Cloture d'un emargement par un enseignant                            | /emargement/{idEmargement}         | PUT     | Enseignant   |
+| Liste de tous les emargements clos par un personnel administratif    | /emargement/clos                   | GET     | PersonnelAdm |
+| Liste de tous les emargements ouverts par un personnel administratif | /emargement/ouverts                | GET     | PersonnelAdm |
+| Consultation de l'emargement par un personnel administratif          | /emargement/{idEmargement}         | GET     | PersonnelAdm |
+| Creation d'un nouvel emargement par un personnel administratif       | /emargement/                       | POST    | PersonnelAdm |
+| Liste de tous les etudiants presents par un personnel administratif  | /emargement/{idEmargement}/present | GET     | PersonnelAdm |
+| Liste de tous les etudiants absents par un personnel administratif   | /emargement/{idEmargement}/absent  | GET     | PersonnelAdm |           
 
 ---
 
@@ -143,35 +143,35 @@ www.localhost:8080/emargement/{idEmargement}/absent
 <br>_Bonus gestion des entités (CRUD)_
 <br>**Role:** PersonnelAdmin
 
-| Fonctionnalités                                  | URI                       | Méthode   |
-|:-------------------------------------------------|---------------------------|-----------|
-| Liste de tous les enseignants                    | /enseignant               | GET       |
-| Ajout d'un enseignant                            | /enseignant               | POST      |
-| Consultation des informations d'un enseignant    | /enseignant/{idEns}       | GET       |
-| Suppression d'un enseignant                      | /enseignant/{idEns}       | DELETE    |
-| Liste de tous les étudiants                      | /etudiant/                | GET       |
-| Ajout d'un étudiant                              | /etudiant/                | POST      |
-| Consultation des informations d'un étudiant      | /etudiant/{NumEtu}        | GET       |
-| Suppression d'un étudiant                        | /etudiant/{NumEtu}        | DELETE    |
-| Liste de tous les modules                        | /module/                  | GET       |
-| Ajout d'un module                                | /module/                  | POST      |
-| Consultation des informations d'un module        | /module/{CodeMod}         | GET       |
-| Suppression d'un module                          | /module/{CodeMod}         | DELETE    |
-| Modification des informations d'un module        | /module/{CodeMod}         | PUT       |
-| Liste de tous les semestres                      | /semestre/                | GET       |
-| Ajout d'un semestre                              | /semestre/                | POST      |
-| Consultation des informations d'un semestre      | /semestre/{nomSemestre}   | GET       |
-| Suppression d'un semestre                        | /semestre/{nomSemestre}   | DELETE    |
-| Modification des informations d'un semestre      | /semestre/{nomSemestre}   | PUT       |
-| Ajout d'un sous-Module                           | /SMod/                    | POST      |
-| Liste de de tous les sous-Modules                | /SMod/                    | GET       |
-| Consultation des informations d'un sous-Module   | /SMod/{NomSMod}           | GET       |
-| Ajout d'un groupe                                | /groupe/                  | POST      |
-| Liste de de tous les groupes                     | /groupe/                  | GET       |
-| Consultation des informations d'un groupe        | /groupe/{NomG}            | GET       |
-| Ajout d'une salle                                | /salle/                   | POST      |
-| Liste de de toutes les salles                    | /salle/                   | GET       |
-| Consultation des informations d'une salle        | /salle/{salle}            | GET       |
+| Fonctionnalités                                | URI                     | Méthode | Rôle         |
+|:-----------------------------------------------|-------------------------|---------|--------------|
+| Liste de tous les enseignants                  | /enseignant             | GET     | PersonnelAdm |
+| Ajout d'un enseignant                          | /enseignant             | POST    | PersonnelAdm |
+| Consultation des informations d'un enseignant  | /enseignant/{idEns}     | GET     | PersonnelAdm |
+| Suppression d'un enseignant                    | /enseignant/{idEns}     | DELETE  | PersonnelAdm |
+| Liste de tous les étudiants                    | /etudiant/              | GET     | PersonnelAdm |
+| Ajout d'un étudiant                            | /etudiant/              | POST    | PersonnelAdm |
+| Consultation des informations d'un étudiant    | /etudiant/{NumEtu}      | GET     | PersonnelAdm |
+| Suppression d'un étudiant                      | /etudiant/{NumEtu}      | DELETE  | PersonnelAdm |
+| Liste de tous les modules                      | /module/                | GET     | PersonnelAdm |
+| Ajout d'un module                              | /module/                | POST    | PersonnelAdm |
+| Consultation des informations d'un module      | /module/{CodeMod}       | GET     | PersonnelAdm |
+| Suppression d'un module                        | /module/{CodeMod}       | DELETE  | PersonnelAdm |
+| Modification des informations d'un module      | /module/{CodeMod}       | PUT     | PersonnelAdm |
+| Liste de tous les semestres                    | /semestre/              | GET     | PersonnelAdm |
+| Ajout d'un semestre                            | /semestre/              | POST    | PersonnelAdm |
+| Consultation des informations d'un semestre    | /semestre/{nomSemestre} | GET     | PersonnelAdm |
+| Suppression d'un semestre                      | /semestre/{nomSemestre} | DELETE  | PersonnelAdm |
+| Modification des informations d'un semestre    | /semestre/{nomSemestre} | PUT     | PersonnelAdm |
+| Ajout d'un sous-Module                         | /SMod/                  | POST    | PersonnelAdm |
+| Liste de de tous les sous-Modules              | /SMod/                  | GET     | PersonnelAdm |
+| Consultation des informations d'un sous-Module | /SMod/{NomSMod}         | GET     | PersonnelAdm |
+| Ajout d'un groupe                              | /groupe/                | POST    | PersonnelAdm |
+| Liste de de tous les groupes                   | /groupe/                | GET     | PersonnelAdm |
+| Consultation des informations d'un groupe      | /groupe/{NomG}          | GET     | PersonnelAdm |
+| Ajout d'une salle                              | /salle/                 | POST    | PersonnelAdm |
+| Liste de de toutes les salles                  | /salle/                 | GET     | PersonnelAdm |
+| Consultation des informations d'une salle      | /salle/{salle}          | GET     | PersonnelAdm |
 
 
 
