@@ -11,10 +11,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.awt.image.BufferedImage;
 import java.net.URI;
+import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/emargement")
 public class EmargementController {
+
     @Autowired
     FacadeEmargement facadeEmargement;
     @Autowired
@@ -25,6 +31,9 @@ public class EmargementController {
     FacadeEtudiant facadeEtudiant;
     @Autowired
     FacadeGroupe facadeGroupe;
+    @Autowired
+    FacadeEnseignant facadeEnseignant;
+
 
     @PostMapping("/")
     public ResponseEntity<Emargement> creerEmargement(@RequestBody Emargement em) {
@@ -53,10 +62,85 @@ public class EmargementController {
         }
     }
 
+
+    @GetMapping("/ouverts")
+    public ResponseEntity<List<Emargement>> getEmargementsOuverts(){
+        List<Emargement> listeEmargementsOuverts = new ArrayList<>();
+        facadeEmargement.findByEtatEmargement("Ouvert").forEach(e -> listeEmargementsOuverts.add(e.get()));
+        return ResponseEntity.ok().body(listeEmargementsOuverts);
+    }
+
+    @GetMapping("/clos")
+    public ResponseEntity<List<Emargement>> getEmargementsClos(){
+        List<Emargement> listeEmargementsClos = new ArrayList<>();
+        facadeEmargement.findByEtatEmargement("Clos").forEach(e -> listeEmargementsClos.add(e.get()));
+        return ResponseEntity.ok().body(listeEmargementsClos);
+    }
+
+
 //    @GetMapping("/clos")
-//    public ResponseEntity<Emargement[]> getEmargementClos(){
-//
+//    public ResponseEntity<List<Emargement>> getEmargementsOuverts(){
+//        List<Emargement> listeEmargementsOuverts = new ArrayList<>();
+//        for (Optional<Emargement> emargement : facadeEmargement.findEmargementsByHeureDebutBeforeAndHeureFinAfter(LocalDateTime.now(), LocalDateTime.now())) {
+//            if(emargement.isPresent()){
+//                listeEmargementsOuverts.add(emargement.get());
+//            }else{
+//                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//            }
+//        }
+//        return ResponseEntity.ok(listeEmargementsOuverts);
 //    }
+
+//    @Autowired
+//    public FacadeUtilisateur facadeUtilisateur;
+
+    @PutMapping("/{idEmargement}")
+    public ResponseEntity<String> emargerEtudiant(@PathVariable String idEmargement, Principal principal) {
+
+        //TODO : A revoir UNIQUEMENT ETUDIANT
+        // Utilisateur utilisateur = facadeUtilisateur.findUtilisateurByLogin(principal.getName()).get();
+        // if(utilisateur.getRole().equals(Role.Etudiant)){ ...[le reste du code]... }
+        // Est ce que c'est correct ? si oui on utilise ca pour les deux requêtes PUT
+
+        Etudiant etudiant = facadeEtudiant.findById(principal.getName()).get();
+        Emargement emargement = facadeEmargement.findById(idEmargement).get();
+        if(emargement == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }else{
+            if(emargement.getEtudiantsAbsents().contains(etudiant)
+                    && !emargement.getEtudiantsPresents().contains(etudiant)
+                    && etudiant.getEtat().equals(Etat.ABSENT)){
+                etudiant.setEtat(Etat.PRESENT);
+                emargement.addEtudiantsPresents(etudiant);
+                //return new ResponseEntity<String>("", HttpStatus.ACCEPTED);
+                 return ResponseEntity.status(HttpStatus.ACCEPTED).body("Emargement enregistré avec succès pour l'étudiant: "+ etudiant.getNumEtu());
+            }else{
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
+        }
+    }
+
+    @PutMapping("/{idEmargement}")
+    public ResponseEntity<String> clotureEmargementEnseignant(@PathVariable String idEmargement, Principal principal) {
+
+        //TODO : A revoir UNIQUEMENT ENSEIGNANT
+        // Utilisateur utilisateur = facadeUtilisateur.findUtilisateurByLogin(principal.getName()).get();
+        // if(utilisateur.getRole().equals(Role.Enseignant)){ ...[le reste du code]... }
+        // Est ce que c'est correct ? si oui on utilise ca pour les deux requêtes PUT
+
+        Enseignant enseignant = facadeEnseignant.findById(principal.getName()).get();
+        Emargement emargement = facadeEmargement.findById(idEmargement).get();
+        if(emargement == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }else{
+
+            // TODO : En cours...
+
+        }
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    }
+
 
 
 

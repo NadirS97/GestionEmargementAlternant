@@ -27,9 +27,10 @@ public class CryptoConfig extends WebSecurityConfigurerAdapter  {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/emargement").permitAll()
-                .antMatchers(HttpMethod.PUT,"/emargement/*").hasAnyRole("Etudiant", "Enseignant")
-                .anyRequest().hasRole("PersonnelAdm")
+                //.antMatchers(HttpMethod.POST,"/emargement").permitAll()
+                //.antMatchers(HttpMethod.PUT,"/emargement/*").hasAnyRole("Etudiant", "Enseignant")
+                //.anyRequest().hasRole("PersonnelAdm")
+                .anyRequest().permitAll()
                 .and().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

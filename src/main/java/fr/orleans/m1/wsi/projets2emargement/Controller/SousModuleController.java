@@ -32,13 +32,13 @@ public class SousModuleController {
     }
 
     @GetMapping("/{NomSMod}")
-    public ResponseEntity<SousModule> getModuleByCode(@PathVariable("NomSMod") String nomSMod){
+    public ResponseEntity<SousModule> getSousModuleByCode(@PathVariable("NomSMod") String nomSMod){
         Optional<SousModule> Sousmodule=facadeSousModule.findById(nomSMod);
         return Sousmodule.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/")
-    public ResponseEntity<SousModule> creerModule(@RequestBody SousModule sousModule){
+    public ResponseEntity<SousModule> creerSousModule(@RequestBody SousModule sousModule){
 
 
         if(     sousModule.getNomSM()==null || sousModule.getNomSM().isEmpty() ||
@@ -82,7 +82,7 @@ public class SousModuleController {
     }
 
 //    @DeleteMapping("/{NomSMod}")
-//    public ResponseEntity<String> DeleteModule(@PathVariable("CodeMod") String CodeMod) {
+//    public ResponseEntity<String> supprimerSousModule(@PathVariable("CodeMod") String CodeMod) {
 //        Optional<Module> module = facadeModule.findById(CodeMod);
 //        if (module.isPresent()) {
 //            facadeModule.deleteById(CodeMod);

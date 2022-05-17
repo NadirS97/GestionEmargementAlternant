@@ -10,5 +10,6 @@ import java.util.Optional;
 
 public interface FacadeEmargement extends MongoRepository<Emargement,String> {
     Optional<Emargement> findByHeureDebutAndHeureFinAndSalle(LocalDateTime hd, LocalDateTime hf, Salle salle);
+    List<Optional<Emargement>> findByEtatEmargement(String etatEmargement);
     List<Optional<Emargement>> findEmargementsByHeureDebutBeforeAndHeureFinAfter(LocalDateTime hd, LocalDateTime hf);
 }

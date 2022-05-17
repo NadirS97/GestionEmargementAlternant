@@ -92,7 +92,10 @@ public class Emargement {
     public void setEtudiantsPresents(List<Etudiant> etudiantsPresents) {
         this.etudiantsPresents = etudiantsPresents;
     }
+
     public void addEtudiantsPresents(Etudiant etudiantPresent) {
+        //TODO : A revoir Modifier pour qu'au moment d'ajouter un étudiantPresent, on le retire de la liste des étudiantsAbsents
+        this.etudiantsAbsents.remove(etudiantPresent);
         this.etudiantsPresents.add(etudiantPresent);
     }
 

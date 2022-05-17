@@ -128,3 +128,24 @@ Content-Type: application/json
     "nomSalle": "E07"
   }
 }
+
+###
+POST http://localhost:8080/emargement/
+Content-Type: application/json
+
+{
+  "heureDebut": "2022-05-10T14:30",
+  "heureFin": "2022-05-10T15:30",
+  "sousModule": {
+    "nomSM": "Module4"
+  },
+  "salle": {
+    "nomSalle": "E05"
+  }
+}
+###
+GET http://localhost:8080/emargement/ouverts
+###
+GET http://localhost:8080/emargement/clos
+###
+
