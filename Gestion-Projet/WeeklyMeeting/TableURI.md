@@ -125,17 +125,17 @@ www.localhost:8080/emargement/{idEmargement}/absent
 ---
 **Fonctionnalités obligatoires:**
 
-| Avancement | Fonctionnalités                                                      | URI                                | Méthode | Rôle         |
-|------------|:---------------------------------------------------------------------|------------------------------------|---------|--------------|
-|            | Connexion                                                            | /emargement                        | POST    | All          |
-| Fait       | Emargement d'un etudiant                                             | /emargement/{idEmargement}         | PUT     | Etudiant     |
-| En-cours   | Cloture d'un emargement par un enseignant                            | /emargement/{idEmargement}         | PUT     | Enseignant   |
-| Fait       | Liste de tous les emargements clos par un personnel administratif    | /emargement/clos                   | GET     | PersonnelAdm |
-| Fait       | Liste de tous les emargements ouverts par un personnel administratif | /emargement/ouverts                | GET     | PersonnelAdm |
-|            | Consultation de l'emargement par un personnel administratif          | /emargement/{idEmargement}         | GET     | PersonnelAdm |
-| Fait       | Creation d'un nouvel emargement par un personnel administratif       | /emargement/                       | POST    | PersonnelAdm |
-|            | Liste de tous les etudiants presents par un personnel administratif  | /emargement/{idEmargement}/present | GET     | PersonnelAdm |
-|            | Liste de tous les etudiants absents par un personnel administratif   | /emargement/{idEmargement}/absent  | GET     | PersonnelAdm |           
+| Avancement                     | Fonctionnalités                                                      | URI                                | Méthode | Rôle         |
+|--------------------------------|:---------------------------------------------------------------------|------------------------------------|---------|--------------|
+|                                | Connexion                                                            | /emargement                        | POST    | All          |
+| Fait (demande de verification) | Emargement d'un etudiant                                             | /emargement/{idEmargement}         | PUT     | Etudiant     |
+| Fait (demande de verification) | Cloture d'un emargement par un enseignant                            | /emargement/{idEmargement}         | PUT     | Enseignant   |
+| Fait (demande de verification) | Liste de tous les emargements clos par un personnel administratif    | /emargement/clos                   | GET     | PersonnelAdm |
+| Fait (demande de verification) | Liste de tous les emargements ouverts par un personnel administratif | /emargement/ouverts                | GET     | PersonnelAdm |
+|                                | Consultation de l'emargement par un personnel administratif          | /emargement/{idEmargement}         | GET     | PersonnelAdm |
+| Fait (demande de verification) | Creation d'un nouvel emargement par un personnel administratif       | /emargement/                       | POST    | PersonnelAdm |
+|                                | Liste de tous les etudiants presents par un personnel administratif  | /emargement/{idEmargement}/present | GET     | PersonnelAdm |
+|                                | Liste de tous les etudiants absents par un personnel administratif   | /emargement/{idEmargement}/absent  | GET     | PersonnelAdm |           
 
 ---
 

@@ -33,6 +33,8 @@ public class EmargementController {
     FacadeGroupe facadeGroupe;
     @Autowired
     FacadeEnseignant facadeEnseignant;
+    @Autowired
+    FacadeUtilisateur facadeUtilisateur;
 
 
     @PostMapping("/")
@@ -91,8 +93,6 @@ public class EmargementController {
 //        return ResponseEntity.ok(listeEmargementsOuverts);
 //    }
 
-//    @Autowired
-//    public FacadeUtilisateur facadeUtilisateur;
 
     @PutMapping("/{idEmargement}")
     public ResponseEntity<String> emargerEtudiant(@PathVariable String idEmargement, Principal principal) {
@@ -102,22 +102,26 @@ public class EmargementController {
         // if(utilisateur.getRole().equals(Role.Etudiant)){ ...[le reste du code]... }
         // Est ce que c'est correct ? si oui on utilise ca pour les deux requêtes PUT
 
+        Utilisateur utilisateur = facadeUtilisateur.findUtilisateurByLogin(principal.getName()).get();
         Etudiant etudiant = facadeEtudiant.findById(principal.getName()).get();
         Emargement emargement = facadeEmargement.findById(idEmargement).get();
-        if(emargement == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }else{
-            if(emargement.getEtudiantsAbsents().contains(etudiant)
-                    && !emargement.getEtudiantsPresents().contains(etudiant)
-                    && etudiant.getEtat().equals(Etat.ABSENT)){
-                etudiant.setEtat(Etat.PRESENT);
-                emargement.addEtudiantsPresents(etudiant);
-                //return new ResponseEntity<String>("", HttpStatus.ACCEPTED);
-                 return ResponseEntity.status(HttpStatus.ACCEPTED).body("Emargement enregistré avec succès pour l'étudiant: "+ etudiant.getNumEtu());
+        if(utilisateur.getRole().equals(Role.Etudiant)) {
+            if (emargement == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }else{
-                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+                if (emargement.getEtudiantsAbsents().contains(etudiant)
+                        && !emargement.getEtudiantsPresents().contains(etudiant)
+                        && etudiant.getEtat().equals(Etat.ABSENT)) {
+                    etudiant.setEtat(Etat.PRESENT);
+                    emargement.addEtudiantsPresents(etudiant);
+                    //return new ResponseEntity<String>("", HttpStatus.ACCEPTED);
+                    return ResponseEntity.status(HttpStatus.ACCEPTED).body("Emargement enregistré avec succès pour l'étudiant: " + etudiant.getNumEtu());
+                }else{
+                    return ResponseEntity.status(HttpStatus.CONFLICT).build();
+                }
             }
         }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @PutMapping("/{idEmargement}")
@@ -128,17 +132,23 @@ public class EmargementController {
         // if(utilisateur.getRole().equals(Role.Enseignant)){ ...[le reste du code]... }
         // Est ce que c'est correct ? si oui on utilise ca pour les deux requêtes PUT
 
+        Utilisateur utilisateur = facadeUtilisateur.findUtilisateurByLogin(principal.getName()).get();
         Enseignant enseignant = facadeEnseignant.findById(principal.getName()).get();
         Emargement emargement = facadeEmargement.findById(idEmargement).get();
-        if(emargement == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }else{
-
-            // TODO : En cours...
-
+        if(utilisateur.getRole().equals(Role.Enseignant)) {
+            if (emargement == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }else{
+                if (emargement.getSousModule().getEnseignant().equals(enseignant)
+                        && emargement.getEtatEmargement().equals(EtatEmargement.Ouvert)) {
+                    emargement.setEtatEmargement(EtatEmargement.Clos);
+                    return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+                }else {
+                    return ResponseEntity.status(HttpStatus.CONFLICT).build();
+                }
+            }
         }
-
-        return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
 
