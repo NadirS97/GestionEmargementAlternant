@@ -36,7 +36,11 @@ public class EmargementController {
     @Autowired
     FacadeUtilisateur facadeUtilisateur;
 
-
+    /**
+     * Creation d'un nouvel émargement
+     * @param em
+     * @return
+     */
     @PostMapping("/")
     public ResponseEntity<Emargement> creerEmargement(@RequestBody Emargement em) {
         if(em.getHeureDebut() == null || em.getHeureFin() == null || em.getSalle().getNomSalle() == null || em.getSalle().getNomSalle().isEmpty() || em.getSousModule().getNomSM() == null || em.getSousModule().getNomSM().isEmpty())
@@ -64,36 +68,12 @@ public class EmargementController {
         }
     }
 
-
-    @GetMapping("/ouverts")
-    public ResponseEntity<List<Emargement>> getEmargementsOuverts(){
-        List<Emargement> listeEmargementsOuverts = new ArrayList<>();
-        facadeEmargement.findByEtatEmargement("Ouvert").forEach(e -> listeEmargementsOuverts.add(e.get()));
-        return ResponseEntity.ok().body(listeEmargementsOuverts);
-    }
-
-    @GetMapping("/clos")
-    public ResponseEntity<List<Emargement>> getEmargementsClos(){
-        List<Emargement> listeEmargementsClos = new ArrayList<>();
-        facadeEmargement.findByEtatEmargement("Clos").forEach(e -> listeEmargementsClos.add(e.get()));
-        return ResponseEntity.ok().body(listeEmargementsClos);
-    }
-
-
-//    @GetMapping("/clos")
-//    public ResponseEntity<List<Emargement>> getEmargementsOuverts(){
-//        List<Emargement> listeEmargementsOuverts = new ArrayList<>();
-//        for (Optional<Emargement> emargement : facadeEmargement.findEmargementsByHeureDebutBeforeAndHeureFinAfter(LocalDateTime.now(), LocalDateTime.now())) {
-//            if(emargement.isPresent()){
-//                listeEmargementsOuverts.add(emargement.get());
-//            }else{
-//                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//            }
-//        }
-//        return ResponseEntity.ok(listeEmargementsOuverts);
-//    }
-
-
+    /**
+     * Emargement d'un étudiant
+     * @param idEmargement
+     * @param principal
+     * @return
+     */
     @PutMapping("/{idEmargement}")
     public ResponseEntity<String> emargerEtudiant(@PathVariable String idEmargement, Principal principal) {
 
@@ -124,6 +104,12 @@ public class EmargementController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
+    /**
+     * Cloture d'un émargement par un enseignant
+     * @param idEmargement
+     * @param principal
+     * @return
+     */
     @PutMapping("/{idEmargement}")
     public ResponseEntity<String> clotureEmargementEnseignant(@PathVariable String idEmargement, Principal principal) {
 
@@ -151,7 +137,88 @@ public class EmargementController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
+    /**
+     * Liste de tous les émargements ouverts
+     * @return
+     */
+    @GetMapping("/ouverts")
+    public ResponseEntity<List<Emargement>> getEmargementsOuverts(){
+        List<Emargement> listeEmargementsOuverts = new ArrayList<>();
+        facadeEmargement.findByEtatEmargement("Ouvert").forEach(e -> listeEmargementsOuverts.add(e.get()));
+        return ResponseEntity.ok().body(listeEmargementsOuverts);
+    }
 
+    /**
+     * Liste de tous les émargements clos
+     * @return
+     */
+    @GetMapping("/clos")
+    public ResponseEntity<List<Emargement>> getEmargementsClos(){
+        List<Emargement> listeEmargementsClos = new ArrayList<>();
+        facadeEmargement.findByEtatEmargement("Clos").forEach(e -> listeEmargementsClos.add(e.get()));
+        return ResponseEntity.ok().body(listeEmargementsClos);
+    }
+
+
+//    @GetMapping("/clos")
+//    public ResponseEntity<List<Emargement>> getEmargementsOuverts(){
+//        List<Emargement> listeEmargementsOuverts = new ArrayList<>();
+//        for (Optional<Emargement> emargement : facadeEmargement.findEmargementsByHeureDebutBeforeAndHeureFinAfter(LocalDateTime.now(), LocalDateTime.now())) {
+//            if(emargement.isPresent()){
+//                listeEmargementsOuverts.add(emargement.get());
+//            }else{
+//                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//            }
+//        }
+//        return ResponseEntity.ok(listeEmargementsOuverts);
+//    }
+
+    /**
+     * Consultation de l'émargement
+     * @param idEmargement
+     * @return
+     */
+    @GetMapping("/{idEmargement}")
+    public ResponseEntity<Emargement> getEmargement(@PathVariable String idEmargement){
+        Emargement emargement = facadeEmargement.findById(idEmargement).get();
+        if(emargement == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }else{
+            return ResponseEntity.ok().body(emargement);
+        }
+    }
+
+    /**
+     * Liste de tous les étudiants presents
+     * @param idEmargement
+     * @return
+     */
+    @GetMapping("/{idEmargement}/present")
+    public ResponseEntity<List<Etudiant>> getEmargementEtudiantPresent(@PathVariable String idEmargement){
+        Emargement emargement = facadeEmargement.findById(idEmargement).get();
+        List<Etudiant> listeEtudiantsPresent = emargement.getEtudiantsPresents();
+        if (emargement == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }else{
+            return ResponseEntity.ok().body(listeEtudiantsPresent);
+        }
+    }
+
+    /**
+     * Liste de tous les étudiants absents
+     * @param idEmargement
+     * @return
+     */
+    @GetMapping("/{idEmargement}/absent")
+    public ResponseEntity<List<Etudiant>> getEmargementEtudiantAbsent(@PathVariable String idEmargement){
+        Emargement emargement = facadeEmargement.findById(idEmargement).get();
+        List<Etudiant> listeEtudiantsAbsent = emargement.getEtudiantsPresents();
+        if (emargement == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }else{
+            return ResponseEntity.ok().body(listeEtudiantsAbsent);
+        }
+    }
 
 
     @GetMapping(value = "/{id}", produces = MediaType.IMAGE_PNG_VALUE)

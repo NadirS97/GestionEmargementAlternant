@@ -132,10 +132,10 @@ www.localhost:8080/emargement/{idEmargement}/absent
 | Fait (demande de verification) | Cloture d'un emargement par un enseignant                            | /emargement/{idEmargement}         | PUT     | Enseignant   |
 | Fait (demande de verification) | Liste de tous les emargements clos par un personnel administratif    | /emargement/clos                   | GET     | PersonnelAdm |
 | Fait (demande de verification) | Liste de tous les emargements ouverts par un personnel administratif | /emargement/ouverts                | GET     | PersonnelAdm |
-|                                | Consultation de l'emargement par un personnel administratif          | /emargement/{idEmargement}         | GET     | PersonnelAdm |
+| Fait (demande de verification) | Consultation de l'emargement par un personnel administratif          | /emargement/{idEmargement}         | GET     | PersonnelAdm |
 | Fait (demande de verification) | Creation d'un nouvel emargement par un personnel administratif       | /emargement/                       | POST    | PersonnelAdm |
-|                                | Liste de tous les etudiants presents par un personnel administratif  | /emargement/{idEmargement}/present | GET     | PersonnelAdm |
-|                                | Liste de tous les etudiants absents par un personnel administratif   | /emargement/{idEmargement}/absent  | GET     | PersonnelAdm |           
+| Fait (demande de verification) | Liste de tous les etudiants presents par un personnel administratif  | /emargement/{idEmargement}/present | GET     | PersonnelAdm |
+| Fait (demande de verification) | Liste de tous les etudiants absents par un personnel administratif   | /emargement/{idEmargement}/absent  | GET     | PersonnelAdm |           
 
 ---
 
