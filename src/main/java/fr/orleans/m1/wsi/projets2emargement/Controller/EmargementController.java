@@ -70,66 +70,10 @@ public class EmargementController {
         }
     }
 
-    /**
-     * Emargement d'un étudiant
-     * Cloture d'un emargement par un enseignant
-     *
-     * @param idEmargement
-     * @param principal
-     * @return
-     */
-    @PutMapping("/{idEmargement}")
-    public ResponseEntity<String> emargerEtudiant(@PathVariable String idEmargement, Principal principal) {
-
-        Utilisateur utilisateur = facadeUtilisateur.findUtilisateurByLogin(principal.getName()).get();
-        Emargement emargement = facadeEmargement.findById(idEmargement).get();
-
-        if (emargement == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } else {
-            if (utilisateur.getRole().equals(Role.Etudiant)) {
-                Etudiant etudiant = facadeEtudiant.findById(principal.getName()).get();
-                if (emargement.getEtudiantsAbsents().contains(etudiant)
-                        && !emargement.getEtudiantsPresents().contains(etudiant)
-                        && etudiant.getEtat().equals(Etat.ABSENT)) {
-                    etudiant.setEtat(Etat.PRESENT);
-                    emargement.addEtudiantsPresents(etudiant);
-                    //return new ResponseEntity<String>("", HttpStatus.ACCEPTED);
-                    return ResponseEntity.status(HttpStatus.ACCEPTED).body("Emargement enregistré avec succès pour l'étudiant: " + etudiant.getNumEtu());
-                }else{
-                    return ResponseEntity.status(HttpStatus.CONFLICT).build();
-                }
-            }else{
-                if (utilisateur.getRole().equals(Role.Enseignant)) {
-                    Enseignant enseignant = facadeEnseignant.findById(principal.getName()).get();
-                    if (emargement == null) {
-                        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-                    } else {
-                        if (emargement.getSousModule().getEnseignant().equals(enseignant)
-                                && emargement.getEtatEmargement().equals(EtatEmargement.Ouvert)) {
-                            emargement.setEtatEmargement(EtatEmargement.Clos);
-                            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-                        } else {
-                            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-                        }
-                    }
-                }else{
-                    return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-                }
-            }
-        }
-    }
-
-    /**
-     * Liste de tous les émargements ouverts
-     * @return
-     */
-    @GetMapping("/ouverts")
-    public ResponseEntity<List<Emargement>> getEmargementsOuverts(){
-        List<Emargement> listeEmargementsOuverts = new ArrayList<>();
-        facadeEmargement.findByEtatEmargement("Ouvert").forEach(e -> listeEmargementsOuverts.add(e.get()));
-        return ResponseEntity.ok().body(listeEmargementsOuverts);
-    }
+//    @GetMapping("/clos")
+//    public ResponseEntity<Emargement[]> getEmargementClos(){
+//
+//    }
 
     /**
      * Liste de tous les émargements clos
@@ -157,20 +101,9 @@ public class EmargementController {
         }
     }
 
-    /**
-     * Liste de tous les étudiants presents
-     * @param idEmargement
-     * @return
-     */
-    @GetMapping("/{idEmargement}/present")
-    public ResponseEntity<List<Etudiant>> getEmargementEtudiantPresent(@PathVariable String idEmargement){
-        Emargement emargement = facadeEmargement.findById(idEmargement).get();
-        List<Etudiant> listeEtudiantsPresent = emargement.getEtudiantsPresents();
-        if (emargement == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }else{
-            return ResponseEntity.ok().body(listeEtudiantsPresent);
-        }
+    @GetMapping(value = "/{id}", produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<BufferedImage> getQR(@PathVariable("id") String id,String idEtu) throws Exception {
+        return ResponseEntity.ok(QRCodeGenerator.generateQRCodeImage("http://localhost:8080/emargement/168fd113-5370-4a35-8046-1df0f051c1b8/o23312"));
     }
 
     /**
