@@ -77,31 +77,24 @@ public class EmargementController {
     @PutMapping("/{idEmargement}")
     public ResponseEntity<String> emargerEtudiant(@PathVariable String idEmargement, Principal principal) {
 
-        //TODO : A revoir UNIQUEMENT ETUDIANT
-        // Utilisateur utilisateur = facadeUtilisateur.findUtilisateurByLogin(principal.getName()).get();
-        // if(utilisateur.getRole().equals(Role.Etudiant)){ ...[le reste du code]... }
-        // Est ce que c'est correct ? si oui on utilise ca pour les deux requêtes PUT
-
-        Utilisateur utilisateur = facadeUtilisateur.findUtilisateurByLogin(principal.getName()).get();
         Etudiant etudiant = facadeEtudiant.findById(principal.getName()).get();
         Emargement emargement = facadeEmargement.findById(idEmargement).get();
-        if(utilisateur.getRole().equals(Role.Etudiant)) {
-            if (emargement == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }else{
-                if (emargement.getEtudiantsAbsents().contains(etudiant)
-                        && !emargement.getEtudiantsPresents().contains(etudiant)
-                        && etudiant.getEtat().equals(Etat.ABSENT)) {
-                    etudiant.setEtat(Etat.PRESENT);
-                    emargement.addEtudiantsPresents(etudiant);
-                    //return new ResponseEntity<String>("", HttpStatus.ACCEPTED);
-                    return ResponseEntity.status(HttpStatus.ACCEPTED).body("Emargement enregistré avec succès pour l'étudiant: " + etudiant.getNumEtu());
-                }else{
-                    return ResponseEntity.status(HttpStatus.CONFLICT).build();
-                }
+
+        if (emargement == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            if (emargement.getEtudiantsAbsents().contains(etudiant)
+                    && !emargement.getEtudiantsPresents().contains(etudiant)
+                    && etudiant.getEtat().equals(Etat.ABSENT)) {
+                etudiant.setEtat(Etat.PRESENT);
+                emargement.addEtudiantsPresents(etudiant);
+                //return new ResponseEntity<String>("", HttpStatus.ACCEPTED);
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body("Emargement enregistré avec succès pour l'étudiant: " + etudiant.getNumEtu());
+            } else {
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
             }
         }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+
     }
 
     /**
@@ -110,31 +103,23 @@ public class EmargementController {
      * @param principal
      * @return
      */
-    @PutMapping("/{idEmargement}")
+    @PutMapping("/{idEmargement}/cloture")
     public ResponseEntity<String> clotureEmargementEnseignant(@PathVariable String idEmargement, Principal principal) {
 
-        //TODO : A revoir UNIQUEMENT ENSEIGNANT
-        // Utilisateur utilisateur = facadeUtilisateur.findUtilisateurByLogin(principal.getName()).get();
-        // if(utilisateur.getRole().equals(Role.Enseignant)){ ...[le reste du code]... }
-        // Est ce que c'est correct ? si oui on utilise ca pour les deux requêtes PUT
-
-        Utilisateur utilisateur = facadeUtilisateur.findUtilisateurByLogin(principal.getName()).get();
         Enseignant enseignant = facadeEnseignant.findById(principal.getName()).get();
         Emargement emargement = facadeEmargement.findById(idEmargement).get();
-        if(utilisateur.getRole().equals(Role.Enseignant)) {
-            if (emargement == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }else{
-                if (emargement.getSousModule().getEnseignant().equals(enseignant)
-                        && emargement.getEtatEmargement().equals(EtatEmargement.Ouvert)) {
-                    emargement.setEtatEmargement(EtatEmargement.Clos);
-                    return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-                }else {
-                    return ResponseEntity.status(HttpStatus.CONFLICT).build();
-                }
+
+        if (emargement == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            if (emargement.getSousModule().getEnseignant().equals(enseignant)
+                    && emargement.getEtatEmargement().equals(EtatEmargement.Ouvert)) {
+                emargement.setEtatEmargement(EtatEmargement.Clos);
+                return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
             }
         }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     /**

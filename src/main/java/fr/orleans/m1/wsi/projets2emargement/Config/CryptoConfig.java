@@ -1,5 +1,6 @@
 package fr.orleans.m1.wsi.projets2emargement.Config;
 
+import fr.orleans.m1.wsi.projets2emargement.Modele.Etudiant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,7 +29,8 @@ public class CryptoConfig extends WebSecurityConfigurerAdapter  {
                 .csrf().disable()
                 .authorizeRequests()
                 //.antMatchers(HttpMethod.POST,"/emargement").permitAll()
-                //.antMatchers(HttpMethod.PUT,"/emargement/*").hasAnyRole("Etudiant", "Enseignant")
+                //.antMatchers(HttpMethod.PUT,"/emargement/{idEmargement}").hasRole("Etudiant")
+                //.antMatchers(HttpMethod.PUT, "/emargement/{idEmargement}/cloture").hasRole("Enseignant")
                 //.anyRequest().hasRole("PersonnelAdm")
                 .anyRequest().permitAll()
                 .and().httpBasic()
