@@ -194,7 +194,7 @@ import java.util.Optional;
          * @return
          * @throws Exception
          */
-        @GetMapping(value = "/{idEmargement}", produces = MediaType.IMAGE_PNG_VALUE)
+        @GetMapping(value = "/QR/{idEmargement}", produces = MediaType.IMAGE_PNG_VALUE)
         public ResponseEntity<BufferedImage> getQR(@PathVariable("idEmargement") String idEmargement, Principal principal) throws Exception {
             Optional<Emargement> emargement = facadeEmargement.findById(idEmargement);
             if (emargement.isEmpty()){

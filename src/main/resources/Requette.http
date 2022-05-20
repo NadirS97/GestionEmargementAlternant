@@ -117,7 +117,10 @@ Content-Type: application/json
 GET http://localhost:8080/emargement/168fd113-5370-4a35-8046-1df0f051c1b8
 Authorization: Basic p.n@etu.univ-orleans.fr o123
 ###
-GET http://localhost:8080/emargement/168fd113-5370-4a35-8046-1df0f051c1b8/2c4420cca8689c3cecfa3ecfeb21a1d6
+GET http://localhost:8080/emargement/QR/168fd113-5370-4a35-8046-1df0f051c1b8
+Authorization: Basic p.n@etu.univ-orleans.fr o123
+###
+GET localhost:8080/emargement/168fd113-5370-4a35-8046-1df0f051c1b8/2c4420cca8689c3cecfa3ecfeb21a1d6
 Authorization: Basic p.n@etu.univ-orleans.fr o123
 ###
 POST http://localhost:8080/emargement/

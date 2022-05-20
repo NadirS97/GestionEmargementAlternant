@@ -1,6 +1,7 @@
 package fr.orleans.m1.wsi.projets2emargement.Config;
 
 import fr.orleans.m1.wsi.projets2emargement.Modele.Etudiant;
+import fr.orleans.m1.wsi.projets2emargement.Modele.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,11 +29,11 @@ public class CryptoConfig extends WebSecurityConfigurerAdapter  {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                //.antMatchers(HttpMethod.POST,"/emargement").permitAll()
-                //.antMatchers(HttpMethod.PUT,"/emargement/{idEmargement}").hasRole("Etudiant")
-                //.antMatchers(HttpMethod.PUT, "/emargement/{idEmargement}/cloture").hasRole("Enseignant")
-                //.anyRequest().hasRole("PersonnelAdm")
-                .anyRequest().permitAll()
+                .antMatchers(HttpMethod.POST,"/emargement").permitAll()
+                .antMatchers(HttpMethod.PUT,"/emargement/{idEmargement}").hasAnyRole(String.valueOf(Role.Etudiant),String.valueOf(Role.Enseignant))
+                .antMatchers(HttpMethod.GET,"/emargement/QR/{idEmargement}").hasAnyRole(String.valueOf(Role.Etudiant),String.valueOf(Role.Enseignant))
+                .antMatchers(HttpMethod.GET,"/emargement/{idEmargement}/{idUtilisateur}").hasAnyRole(String.valueOf(Role.Etudiant),String.valueOf(Role.Enseignant))
+                .anyRequest().hasRole(String.valueOf(Role.PersonnelAdm))
                 .and().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
