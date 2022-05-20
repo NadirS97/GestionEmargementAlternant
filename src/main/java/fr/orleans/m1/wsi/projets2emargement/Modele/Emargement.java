@@ -96,7 +96,7 @@ public class Emargement {
     public void addEtudiantsPresents(Etudiant etudiantPresent) {
         this.etudiantsPresents.add(etudiantPresent);
     }
-
+    public void RemoveEtudiant(Etudiant etudiantPresent){this.etudiantsAbsents.remove(etudiantPresent);}
     public void supprimerEtudiant(Etudiant etudiantPresent){this.etudiantsAbsents.remove(etudiantPresent);}
 
     public EtatEmargement getEtatEmargement() {

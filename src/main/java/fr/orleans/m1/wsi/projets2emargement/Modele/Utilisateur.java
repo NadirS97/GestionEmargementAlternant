@@ -1,7 +1,11 @@
 package fr.orleans.m1.wsi.projets2emargement.Modele;
 
-public class Utilisateur {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
+public class Utilisateur {
+    @Id
     private String login;
     private String password;
     private Role role;

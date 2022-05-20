@@ -11,24 +11,26 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Optional;
+
 public class CustomUserDetailService implements UserDetailsService {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private FacadeUtilisateur facadeUtilisateur;
+     FacadeUtilisateur facadeUtilisateur;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Utilisateur utilisateur = facadeUtilisateur.findById(s).get();
-        if (utilisateur==null) {
+        Optional<Utilisateur> utilisateur = facadeUtilisateur.findById(s);
+        if (utilisateur.isEmpty()) {
             throw  new UsernameNotFoundException("User "+s+" not found");
         }
-        Role roles = utilisateur.getRole();
+        Role roles = utilisateur.get().getRole();
 
         return User.builder()
-                .username(utilisateur.getLogin())
-                .password(passwordEncoder.encode(utilisateur.getPassword()))
+                .username(utilisateur.get().getLogin())
+                .password(passwordEncoder.encode(utilisateur.get().getPassword()))
                 .roles(String.valueOf(roles))
                 .build();
     }

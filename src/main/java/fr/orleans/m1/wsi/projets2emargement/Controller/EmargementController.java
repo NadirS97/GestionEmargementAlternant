@@ -14,11 +14,9 @@ import java.math.BigInteger;
 import java.net.URI;
 import java.security.MessageDigest;
 import java.security.Principal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/emargement")
@@ -47,21 +45,21 @@ public class EmargementController {
      */
     @PostMapping("/")
     public ResponseEntity<Emargement> creerEmargement(@RequestBody Emargement em) {
-        if (em.getHeureDebut() == null || em.getHeureFin() == null || em.getSalle().getNomSalle() == null || em.getSalle().getNomSalle().isEmpty() || em.getSousModule().getNomSM() == null || em.getSousModule().getNomSM().isEmpty())
+        if(em.getHeureDebut() == null || em.getHeureFin() == null || em.getSalle().getNomSalle() == null || em.getSalle().getNomSalle().isEmpty() || em.getSousModule().getNomSM() == null || em.getSousModule().getNomSM().isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        if (facadeSalle.findById(em.getSalle().getNomSalle()).isEmpty())
+        if(facadeSalle.findById(em.getSalle().getNomSalle()).isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        else if (facadeEmargement.findByHeureDebutAndHeureFinAndSalle(em.getHeureDebut(), em.getHeureFin(), facadeSalle.findById(em.getSalle().getNomSalle()).get()).isPresent())
+        else  if (facadeEmargement.findByHeureDebutAndHeureFinAndSalle(em.getHeureDebut(),em.getHeureFin(),facadeSalle.findById(em.getSalle().getNomSalle()).get()).isPresent())
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        else {
-            if (facadeSalle.findById(em.getSalle().getNomSalle()).isEmpty() || facadeSousModule.findById(em.getSousModule().getNomSM()).isEmpty()) {
+        else{
+            if(facadeSalle.findById(em.getSalle().getNomSalle()).isEmpty() || facadeSousModule.findById(em.getSousModule().getNomSM()).isEmpty()){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             } else if (em.getHeureDebut().isAfter(em.getHeureFin())) {
                 return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-            } else {
-                SousModule sm = facadeSousModule.findById(em.getSousModule().getNomSM()).get();
-                Salle s = facadeSalle.findById(em.getSalle().getNomSalle()).get();
-                Emargement emm = new Emargement(em.getHeureDebut(), em.getHeureFin(), sm, s, facadeGroupe.findById(sm.getGroupe()).get().getEtudiants());
+            }else{
+                SousModule sm= facadeSousModule.findById(em.getSousModule().getNomSM()).get();
+                Salle s= facadeSalle.findById(em.getSalle().getNomSalle()).get();
+                Emargement emm = new Emargement(em.getHeureDebut(),em.getHeureFin(),sm,s,facadeGroupe.findById(sm.getGroupe()).get().getEtudiants());
                 facadeEmargement.save(emm);
                 URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                         .path("/{id}")

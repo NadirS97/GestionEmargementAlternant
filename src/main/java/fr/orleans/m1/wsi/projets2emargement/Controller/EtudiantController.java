@@ -1,7 +1,10 @@
 package fr.orleans.m1.wsi.projets2emargement.Controller;
 
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeEtudiant;
+import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeUtilisateur;
 import fr.orleans.m1.wsi.projets2emargement.Modele.Etudiant;
+import fr.orleans.m1.wsi.projets2emargement.Modele.Role;
+import fr.orleans.m1.wsi.projets2emargement.Modele.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,8 @@ public class EtudiantController {
    // private static List<Etudiant> etudiants= new ArrayList<>();
     @Autowired
     private FacadeEtudiant facadeEtudiant;
+    @Autowired
+    private FacadeUtilisateur facadeUtilisateur;
 
     @GetMapping("/")
     public ResponseEntity<List<Etudiant>> getAllEtudiant(){
@@ -41,13 +46,14 @@ public class EtudiantController {
             ){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }else{
-           // TODO: etudiant.getUtilisateur().setPassword(etudiant.getUtilisateur().getPassword()); // il faut crypter le mot de poasse
             if (facadeEtudiant.findById(etudiant.getNumEtu()).isPresent() || facadeEtudiant.findEtudiantByEmail(etudiant.getPrenom()+"."+etudiant.getNom()+"@etu.univ-orleans.fr").isPresent()){
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
             }else{
 
                 Etudiant e = new Etudiant(etudiant.getNumEtu(),etudiant.getNom(),etudiant.getPrenom(),(etudiant.getGroupes()==null||etudiant.getGroupes().isEmpty())?List.of():etudiant.getGroupes());
                 facadeEtudiant.save(e);
+                Utilisateur u = new Utilisateur(e.getEmail(), e.getNumEtu(), Role.Etudiant);
+                facadeUtilisateur.save(u);
                 URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{NumEtu}").buildAndExpand(e.getNumEtu()).toUri();
                 return ResponseEntity.created(location).body(e);
             }

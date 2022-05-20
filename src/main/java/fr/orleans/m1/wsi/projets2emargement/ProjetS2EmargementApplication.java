@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class ProjetS2EmargementApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(ProjetS2EmargementApplication.class, args);
     }

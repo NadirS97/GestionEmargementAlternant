@@ -2,8 +2,11 @@ package fr.orleans.m1.wsi.projets2emargement.Controller;
 
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeEnseignant;
 import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeSousModule;
+import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeUtilisateur;
 import fr.orleans.m1.wsi.projets2emargement.Modele.Enseignant;
+import fr.orleans.m1.wsi.projets2emargement.Modele.Role;
 import fr.orleans.m1.wsi.projets2emargement.Modele.SousModule;
+import fr.orleans.m1.wsi.projets2emargement.Modele.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,8 @@ public class EnseignantController {
     private FacadeEnseignant facadeEnseignant;
     @Autowired
     private FacadeSousModule facadeSousModule;
+    @Autowired
+    private FacadeUtilisateur facadeUtilisateur;
 
     @GetMapping("/")
     public ResponseEntity<List<Enseignant>> getAllEnseignant(){
@@ -36,12 +41,13 @@ public class EnseignantController {
             if(ens.getNomEns() == null || ens.getNomEns().isEmpty()
                 || ens.getIdEnseignant() == null || ens.getIdEnseignant().isEmpty()
                 || ens.getPrenomEns() == null || ens.getPrenomEns().isEmpty())
-
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             else{
 
                     Enseignant enseignant = new Enseignant(ens.getNomEns(),ens.getPrenomEns(),ens.getIdEnseignant());
                     facadeEnseignant.save(enseignant);
+                    Utilisateur u = new Utilisateur(enseignant.getEmail(), enseignant.getNomEns(), Role.Enseignant);
+                    facadeUtilisateur.save(u);
                     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{idEns}").buildAndExpand(ens.getIdEnseignant()).toUri();
                     return ResponseEntity.created(uri).body(enseignant);
             }
