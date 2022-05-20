@@ -30,7 +30,7 @@ www.localhost:8080/emargement/{idEmargement}
 **Cloture d'un emargement par un enseignant:**
 
 PUT
-www.localhost:8080/emargement/{idEmargement}
+www.localhost:8080/emargement/{idEmargement}/cloture
 
 >- Requête authentifiée uniquement disponible pour le rôle (Enseignant)
 >- Contient dans le body de la requête un paramétre idEmargement qui permettra à un enseignant de clôturer l'émargement
@@ -129,7 +129,7 @@ www.localhost:8080/emargement/{idEmargement}/absent
 |--------------------------------|:---------------------------------------------------------------------|------------------------------------|---------|--------------|
 |                                | Connexion                                                            | /emargement                        | POST    | All          |
 | Fait (demande de verification) | Emargement d'un etudiant                                             | /emargement/{idEmargement}         | PUT     | Etudiant     |
-| Fait (demande de verification) | Cloture d'un emargement par un enseignant                            | /emargement/{idEmargement}         | PUT     | Enseignant   |
+| Fait (demande de verification) | Cloture d'un emargement par un enseignant                            | /emargement/{idEmargement}/cloture | PUT     | Enseignant   |
 | Fait (demande de verification) | Liste de tous les emargements clos par un personnel administratif    | /emargement/clos                   | GET     | PersonnelAdm |
 | Fait (demande de verification) | Liste de tous les emargements ouverts par un personnel administratif | /emargement/ouverts                | GET     | PersonnelAdm |
 | Fait (demande de verification) | Consultation de l'emargement par un personnel administratif          | /emargement/{idEmargement}         | GET     | PersonnelAdm |
