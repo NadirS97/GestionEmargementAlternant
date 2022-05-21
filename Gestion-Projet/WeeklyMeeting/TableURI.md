@@ -135,8 +135,8 @@ www.localhost:8080/emargement/{idEmargement}/absent
 | Fait       | Consultation de l'emargement par un personnel administratif          | /emargement/{idEmargement}         | GET     | PersonnelAdm |
 | Fait       | Creation d'un nouvel emargement par un personnel administratif       | /emargement/                       | POST    | PersonnelAdm |
 | Fait       | Liste de tous les etudiants presents par un personnel administratif  | /emargement/{idEmargement}/present | GET     | PersonnelAdm |
-| Fait       | Liste de tous les etudiants absents par un personnel administratif   | /emargement/{idEmargement}/absent  | GET     | PersonnelAdm |           
-
+| Fait       | Liste de tous les etudiants absents par un personnel administratif   | /emargement/{idEmargement}/absent  | GET     | PersonnelAdm |
+| Fait       | Liste de tous les emargements par un personnel administratif         | /emargement/                       | GET     | PersonnelAdm |
 ---
 
 **Fonctionnalités optionnelles:**

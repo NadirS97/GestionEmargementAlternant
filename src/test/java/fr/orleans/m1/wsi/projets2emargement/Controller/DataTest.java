@@ -14,7 +14,4 @@ public interface DataTest {
     String getLoginAdmin();
     String getPasswordAdmin();
 
-
-
-
 }

@@ -29,7 +29,6 @@ public class CryptoConfig extends WebSecurityConfigurerAdapter  {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/utilisateur").permitAll()
                 .antMatchers(HttpMethod.POST,"/emargement").permitAll()
                 .antMatchers(HttpMethod.PUT,"/emargement/{idEmargement}").hasAnyRole(String.valueOf(Role.Etudiant),String.valueOf(Role.Enseignant))
                 .antMatchers(HttpMethod.GET,"/emargement/QR/{idEmargement}").hasAnyRole(String.valueOf(Role.Etudiant),String.valueOf(Role.Enseignant))

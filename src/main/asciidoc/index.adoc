@@ -1,0 +1,13 @@
+= API Docs
+
+== GET
+HTTP Request:
+include::../../../target/generated-snippets/get-all-emargements/http-request.adoc[]
+HTTP Response:
+include::../../../target/generated-snippets/get-all-emargements/http-response.adoc[]
+Body request:
+include::../../../target/generated-snippets/get-all-emargements/request-body.adoc[]
+Body Response:
+include::../../../target/generated-snippets/get-all-emargements/response-body.adoc[]
+
+

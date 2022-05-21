@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.orleans.m1.wsi.projets2emargement.Modele.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -42,9 +43,6 @@ class EmargementControllerTest {
     @MockBean
     EmargementController emargementController;
 
-    @MockBean
-    UtilisateurController utilisateurController;
-
     @Autowired
     ObjectMapper objectMapper;
 
@@ -58,11 +56,7 @@ class EmargementControllerTest {
         String loginAdmin = dataTest.getLoginAdmin();
         String passwordAdmin = dataTest.getPasswordAdmin();
 
-        Utilisateur utilisateur = new Utilisateur(loginAdmin, passwordAdmin, Role.PersonnelAdm);
-
-        utilisateurController.creerUtilisateur(utilisateur);
-
-        when(emargementController.getAll()).thenReturn(ResponseEntity.ok().body(emargements));
+        Mockito.when(emargementController.getAll()).thenReturn(ResponseEntity.ok().body(emargements));
 
         mockMvc.perform(get("/emargement/")
                         .with(httpBasic(loginAdmin,passwordAdmin)))
@@ -73,7 +67,6 @@ class EmargementControllerTest {
                         preprocessResponse(prettyPrint())
                 ));
     }
-
 
 //    @Test
 //    public void testGetAllKO() throws Exception {
@@ -96,5 +89,9 @@ class EmargementControllerTest {
 //                ));
 //    }
 
+    @Test
+    public void testGetEmargementsOuverts() throws Exception {
+
+    }
 
 }
