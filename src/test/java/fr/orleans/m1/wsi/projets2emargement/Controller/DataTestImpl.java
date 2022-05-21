@@ -33,12 +33,12 @@ public class DataTestImpl implements DataTest {
 
     @Override
     public String getLoginAdmin() {
-        return "login";
+        return "Admin";
     }
 
     @Override
     public String getPasswordAdmin() {
-        return "password";
+        return "Admin";
     }
 
 

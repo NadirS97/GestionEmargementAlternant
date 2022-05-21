@@ -42,6 +42,9 @@ class EmargementControllerTest {
     @MockBean
     EmargementController emargementController;
 
+    @MockBean
+    UtilisateurController utilisateurController;
+
     @Autowired
     ObjectMapper objectMapper;
 
@@ -57,6 +60,8 @@ class EmargementControllerTest {
 
         Utilisateur utilisateur = new Utilisateur(loginAdmin, passwordAdmin, Role.PersonnelAdm);
 
+        utilisateurController.creerUtilisateur(utilisateur);
+
         when(emargementController.getAll()).thenReturn(ResponseEntity.ok().body(emargements));
 
         mockMvc.perform(get("/emargement/")
@@ -68,6 +73,7 @@ class EmargementControllerTest {
                         preprocessResponse(prettyPrint())
                 ));
     }
+
 
 //    @Test
 //    public void testGetAllKO() throws Exception {
