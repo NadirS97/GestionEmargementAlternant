@@ -81,7 +81,7 @@ import java.util.Optional;
          * @return
          */
         @PutMapping("/{idEmargement}")
-        public ResponseEntity<String> emargerEtudiant(@PathVariable String idEmargement, Principal principal) {
+        public ResponseEntity<String> emargement(@PathVariable String idEmargement, Principal principal) {
 
             Utilisateur utilisateur = facadeUtilisateur.findUtilisateurByLogin(principal.getName()).get();
             Optional<Emargement> emargement = facadeEmargement.findById(idEmargement);
@@ -95,6 +95,7 @@ import java.util.Optional;
                             && !emargement.get().getEtudiantsPresents().contains(etudiant)
                             && etudiant.getEtat().equals(Etat.ABSENT)) {
                         etudiant.setEtat(Etat.PRESENT);
+                        emargement.get().supprimerEtudiant(etudiant);
                         emargement.get().addEtudiantsPresents(etudiant);
                         //return new ResponseEntity<String>("", HttpStatus.ACCEPTED);
                         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Emargement enregistré avec succès pour l'étudiant: " + etudiant.getNumEtu());

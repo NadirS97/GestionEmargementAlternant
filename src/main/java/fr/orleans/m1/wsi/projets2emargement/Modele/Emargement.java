@@ -17,7 +17,7 @@ public class Emargement {
     private List<Etudiant> etudiantsAbsents;
     private List<Etudiant> etudiantsPresents;
     private EtatEmargement etatEmargement;
-    private  Salle salle;
+    private Salle salle;
 
 
     public Emargement(){}
@@ -96,7 +96,7 @@ public class Emargement {
     public void addEtudiantsPresents(Etudiant etudiantPresent) {
         this.etudiantsPresents.add(etudiantPresent);
     }
-    public void RemoveEtudiant(Etudiant etudiantPresent){this.etudiantsAbsents.remove(etudiantPresent);}
+
     public void supprimerEtudiant(Etudiant etudiantPresent){this.etudiantsAbsents.remove(etudiantPresent);}
 
     public EtatEmargement getEtatEmargement() {
