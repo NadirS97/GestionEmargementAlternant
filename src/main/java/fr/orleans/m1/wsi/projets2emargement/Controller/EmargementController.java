@@ -73,15 +73,15 @@ import java.util.Optional;
         }
 
         /**
-         * Emargement d'un étudiant
-         * Cloture d'un emargement par un enseignant
+         * Emargement d'un étudiant si le principal si l'utilisateur est un étudiant
+         * Cloture d'un émargement par un enseignant si l'utilisateur est un enseignant
          *
          * @param idEmargement
          * @param principal
          * @return
          */
         @PutMapping("/{idEmargement}")
-        public ResponseEntity<String> emargement(@PathVariable String idEmargement, Principal principal) {
+        public ResponseEntity<String> emarger(@PathVariable String idEmargement, Principal principal) {
 
             Utilisateur utilisateur = facadeUtilisateur.findUtilisateurByLogin(principal.getName()).get();
             Optional<Emargement> emargement = facadeEmargement.findById(idEmargement);
@@ -92,9 +92,7 @@ import java.util.Optional;
                 if (utilisateur.getRole().equals(Role.Etudiant)) {
                     Etudiant etudiant = facadeEtudiant.findById(principal.getName()).get();
                     if (emargement.get().getEtudiantsAbsents().contains(etudiant)
-                            && !emargement.get().getEtudiantsPresents().contains(etudiant)
-                            && etudiant.getEtat().equals(Etat.ABSENT)) {
-                        etudiant.setEtat(Etat.PRESENT);
+                            && !emargement.get().getEtudiantsPresents().contains(etudiant)) {
                         emargement.get().supprimerEtudiant(etudiant);
                         emargement.get().addEtudiantsPresents(etudiant);
                         //return new ResponseEntity<String>("", HttpStatus.ACCEPTED);

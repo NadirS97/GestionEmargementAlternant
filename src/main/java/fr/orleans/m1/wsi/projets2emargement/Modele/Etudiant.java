@@ -13,7 +13,6 @@ public class Etudiant {
     private String nom;
     private String prenom;
     private String email;
-    private Etat etat;
     private List<String> groupes;
 
     public Etudiant(String numEtu, String nom, String prenom, List<String> groupes) {
@@ -21,7 +20,6 @@ public class Etudiant {
         this.nom = nom;
         this.prenom = prenom;
         this.email = prenom+"."+nom+"@etu.univ-orleans.fr";
-        this.etat = Etat.ABSENT;
         this.groupes = groupes;
     }
     public Etudiant(String numEtu, String nom, String prenom) {
@@ -29,7 +27,6 @@ public class Etudiant {
         this.nom = nom;
         this.prenom = prenom;
         this.email = prenom+"."+nom+"@etu.univ-orleans.fr";
-        this.etat = Etat.ABSENT;
         this.groupes = List.of();
     }
     public Etudiant() {
@@ -65,14 +62,6 @@ public class Etudiant {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Etat getEtat() {
-        return etat;
-    }
-
-    public void setEtat(Etat etat) {
-        this.etat = etat;
     }
 
     public List<String> getGroupes() {
