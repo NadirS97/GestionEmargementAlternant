@@ -1,0 +1,21 @@
+= API Docs Erreurs
+
+== GET getAll() : 404
+http://localhost:8080/emargement/
+
+_Recuperer tous les emargements avec emargements vide_
+
+MethodTest: testGetAllKO()
+
+`HTTP Request:`
+include::../../../target/generated-snippets/get-all-emargements-KO/http-request.adoc[]
+`HTTP Response:`
+include::../../../target/generated-snippets/get-all-emargements-KO/http-response.adoc[]
+`Body request:`
+include::../../../target/generated-snippets/get-all-emargements-KO/request-body.adoc[]
+`Body Response:`
+include::../../../target/generated-snippets/get-all-emargements-KO/response-body.adoc[]
+
+
+
+

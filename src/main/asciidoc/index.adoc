@@ -1,13 +1,56 @@
 = API Docs
 
-== GET
-HTTP Request:
-include::../../../target/generated-snippets/get-all-emargements/http-request.adoc[]
-HTTP Response:
-include::../../../target/generated-snippets/get-all-emargements/http-response.adoc[]
-Body request:
-include::../../../target/generated-snippets/get-all-emargements/request-body.adoc[]
-Body Response:
-include::../../../target/generated-snippets/get-all-emargements/response-body.adoc[]
+== GET getAll() : 200
+http://localhost:8080/emargement/
+
+_Recuperer tous les emargements_
+
+MethodTest: testGetAllOK()
+
+`HTTP Request:`
+include::../../../target/generated-snippets/get-all-emargements-OK/http-request.adoc[]
+`HTTP Response:`
+include::../../../target/generated-snippets/get-all-emargements-OK/http-response.adoc[]
+`Body request:`
+include::../../../target/generated-snippets/get-all-emargements-OK/request-body.adoc[]
+`Body Response:`
+include::../../../target/generated-snippets/get-all-emargements-OK/response-body.adoc[]
+
+== GET getEmargementsOuverts() : 200
+http://localhost:8080/emargement/ouverts
+
+_Recuperer tous les emargements ouverts_
+
+MethodTest: testGetAllOK()
+
+`HTTP Request:`
+include::../../../target/generated-snippets/get-emargementsOuverts-OK/http-request.adoc[]
+`HTTP Response:`
+include::../../../target/generated-snippets/get-emargementsOuverts-OK/http-response.adoc[]
+`Body request:`
+include::../../../target/generated-snippets/get-emargementsOuverts-OK/request-body.adoc[]
+`Body Response:`
+include::../../../target/generated-snippets/get-emargementsOuverts-OK/response-body.adoc[]
+
+== GET getEmargementsClos() : 200
+http://localhost:8080/emargement/clos
+
+_Recuperer tous les emargements clos_
+
+MethodTest: testGetEmargementsClosOK()
+
+`HTTP Request:`
+include::../../../target/generated-snippets/get-emargementsClos-OK/http-request.adoc[]
+`HTTP Response:`
+include::../../../target/generated-snippets/get-emargementsClos-OK/http-response.adoc[]
+`Body request:`
+include::../../../target/generated-snippets/get-emargementsClos-OK/request-body.adoc[]
+`Body Response:`
+include::../../../target/generated-snippets/get-emargementsClos-OK/response-body.adoc[]
+
+
+
+
+
 
 

@@ -1,6 +1,7 @@
 package fr.orleans.m1.wsi.projets2emargement.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.orleans.m1.wsi.projets2emargement.Facade.FacadeEmargement;
 import fr.orleans.m1.wsi.projets2emargement.Modele.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,11 +18,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
@@ -41,7 +42,7 @@ class EmargementControllerTest {
     DataTest dataTest ;
 
     @MockBean
-    EmargementController emargementController;
+    FacadeEmargement facadeEmargement;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -50,48 +51,103 @@ class EmargementControllerTest {
     public void testGetAllOK() throws Exception {
 
         List<Emargement> emargements = Arrays.asList(
-                new Emargement(LocalDateTime.parse("2022-05-10T10:30"), dataTest.getSousModule(), dataTest.getSalle(), dataTest.getEtudiants())
+                new Emargement(LocalDateTime.parse("2022-05-10T10:30"), dataTest.getSousModule(), dataTest.getSalle(), dataTest.getEtudiants()),
+                new Emargement(LocalDateTime.parse("2022-05-22T10:30"), dataTest.getSousModule(), dataTest.getSalle(), dataTest.getEtudiants())
         );
 
         String loginAdmin = dataTest.getLoginAdmin();
         String passwordAdmin = dataTest.getPasswordAdmin();
 
-        Mockito.when(emargementController.getAll()).thenReturn(ResponseEntity.ok().body(emargements));
+        Mockito.when(facadeEmargement.findAll()).thenReturn(emargements);
 
         mockMvc.perform(get("/emargement/")
-                        .with(httpBasic(loginAdmin,passwordAdmin)))
+                        .with(httpBasic(loginAdmin,passwordAdmin))
+                        .content(objectMapper.writeValueAsString(emargements)))
                 .andExpect(status().isOk())
                 .andDo(document(
-                        "get-all-emargements",
+                        "get-all-emargements-OK",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint())
                 ));
     }
 
-//    @Test
-//    public void testGetAllKO() throws Exception {
-//        List<Emargement> emargements = Arrays.asList(
-//                new Emargement(LocalDateTime.parse("2022-05-10T10:30"), dataTest.getSousModule(), dataTest.getSalle(), dataTest.getEtudiants())
-//        );
-//        String loginAdmin = dataTest.getLoginAdmin();
-//        String passwordAdmin = dataTest.getPasswordAdmin();
-//
-//        Utilisateur utilisateur = new Utilisateur(loginAdmin, passwordAdmin, Role.Etudiant);
-//
-//        when(emargementController.getAll()).thenReturn(ResponseEntity.ok().body(emargements));
-//        mockMvc.perform(get("/emargement/")
-//                        .with(httpBasic(loginAdmin,passwordAdmin)))
-//                .andExpect(status().isOk())
-//                .andDo(document(
-//                        "get-all-emargements-NonAutorisé",
-//                        preprocessRequest(prettyPrint()),
-//                        preprocessResponse(prettyPrint())
-//                ));
-//    }
+    @Test
+    public void testGetAllKO() throws Exception {
+        List<Emargement> emargements = new ArrayList<>();
+
+        String loginAdmin = dataTest.getLoginAdmin();
+        String passwordAdmin = dataTest.getPasswordAdmin();
+
+        Mockito.when(facadeEmargement.findAll()).thenReturn(emargements);
+
+        mockMvc.perform(get("/emargement/")
+                        .with(httpBasic(loginAdmin,passwordAdmin))
+                        .content(objectMapper.writeValueAsString(emargements)))
+                .andExpect(status().isNotFound())
+                .andDo(document(
+                        "get-all-emargements-KO",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint())
+                ));
+    }
 
     @Test
-    public void testGetEmargementsOuverts() throws Exception {
+    public void testGetEmargementsOuvertsOK() throws Exception {
 
+        List<Emargement> emargements = Arrays.asList(
+                new Emargement(LocalDateTime.parse("2022-05-10T10:30"), dataTest.getSousModule(), dataTest.getSalle(), dataTest.getEtudiants()),
+                new Emargement(LocalDateTime.parse("2022-05-22T10:30"), dataTest.getSousModule(), dataTest.getSalle(), dataTest.getEtudiants())
+        );
+
+        String loginAdmin = dataTest.getLoginAdmin();
+        String passwordAdmin = dataTest.getPasswordAdmin();
+
+        Mockito.when(facadeEmargement.findByEtatEmargement(EtatEmargement.Ouvert)).thenReturn(emargements);
+
+        mockMvc.perform(get("/emargement/ouverts")
+                        .with(httpBasic(loginAdmin,passwordAdmin))
+                        .content(objectMapper.writeValueAsString(emargements)))
+                .andExpect(status().isOk())
+                .andDo(document(
+                        "get-emargementsOuverts-OK",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint())
+                ));
     }
+    @Test
+    public void testGetEmargementsClosOK() throws Exception {
+
+
+         Emargement emargement1 = new Emargement(LocalDateTime.parse("2022-05-10T10:30"), dataTest.getSousModule(), dataTest.getSalle(), dataTest.getEtudiants());
+         Emargement emargement2 = new Emargement(LocalDateTime.parse("2022-05-22T10:30"), dataTest.getSousModule(), dataTest.getSalle(), dataTest.getEtudiants());
+         emargement1.setEtatEmargement(EtatEmargement.Clos);
+         emargement2.setEtatEmargement(EtatEmargement.Clos);
+
+         List<Emargement> emargements = new ArrayList<>();
+         emargements.add(emargement1);
+         emargements.add(emargement2);
+
+        String loginAdmin = dataTest.getLoginAdmin();
+        String passwordAdmin = dataTest.getPasswordAdmin();
+
+        Mockito.when(facadeEmargement.findByEtatEmargement(EtatEmargement.Clos)).thenReturn(emargements);
+
+        mockMvc.perform(get("/emargement/clos")
+                        .with(httpBasic(loginAdmin,passwordAdmin))
+                        .content(objectMapper.writeValueAsString(emargements)))
+                .andExpect(status().isOk())
+                .andDo(document(
+                        "get-emargementsClos-OK",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint())
+                ));
+    }
+
+
+
+//    @Test
+//    public void testGetEmargementsOuvertsOK() throws Exception {
+//
+//    }
 
 }

@@ -1,17 +1,12 @@
-POST http://localhost:8080/utilisateur
-
-###
-GET http://localhost:8080/etudiant/
+POST http://localhost:8080/etudiant/
 Authorization: Basic Admin Admin
+Content-Type: application/json
 
-###
-GET http://localhost:8080/etudiant/o234567
-Authorization: Basic Admin Admin
-
-###
-DELETE http://localhost:8080/etudiant/o123qq
-Authorization: Basic Admin Admin
-
+{
+  "numEtu": "o234567",
+  "nom": "Blond",
+  "prenom": "Richard"
+}
 
 ###
 POST http://localhost:8080/etudiant/
@@ -19,9 +14,9 @@ Authorization: Basic Admin Admin
 Content-Type: application/json
 
 {
-  "numEtu": "o23457",
-  "nom": "Tasdemir",
-  "prenom": "Seyma"
+  "numEtu": "o123456",
+  "nom": "Saiah",
+  "prenom": "Nadir"
 }
 
 ###
@@ -34,17 +29,15 @@ Content-Type: application/json
   "nomEns": "Blond",
   "prenomEns": "Lea"
 }
-###
-GET http://localhost:8080/enseignant/o4321
-Authorization: Basic Admin Admin
 
 ###
-DELETE http://localhost:8080/enseignant/o4321
+POST http://localhost:8080/semestre/
 Authorization: Basic Admin Admin
+Content-Type: application/json
 
-###
-GET http://localhost:8080/enseignant/
-Authorization: Basic Admin Admin
+{
+  "nomS": "S2"
+}
 
 ###
 POST http://localhost:8080/semestre/
@@ -56,18 +49,6 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/semestre/
-Authorization: Basic Admin Admin
-
-###
-DELETE http://localhost:8080/semestre/S2
-Authorization: Basic Admin Admin
-
-###
-GET http://localhost:8080/module/
-Authorization: Basic Admin Admin
-
-###
 POST http://localhost:8080/module/
 Authorization: Basic Admin Admin
 Content-Type: application/json
@@ -77,36 +58,6 @@ Content-Type: application/json
   "nomM": "Test et qualite",
   "semestre": "S2"
 }
-
-###
-PUT http://localhost:8080/module/CodeTest
-Authorization: Basic Admin Admin
-Content-Type: application/json
-
-{
-  "nomM": "Test et qualite",
-  "semestre":{
-    "nomS": "S1"
-  }
-}
-
-###
-POST http://localhost:8080/SMod/
-Authorization: Basic Admin Admin
-Content-Type: application/json
-
-{
-  "nomSM": "SM1",
-  "module": "CodeTest",
-  "typeCours": "CM",
-  "groupe": "Groupe4",
-  "enseignant": "o4321"
-}
-
-###
-GET http://localhost:8080/groupe/
-Authorization: Basic Admin Admin
-
 
 ###
 POST http://localhost:8080/groupe/
@@ -126,24 +77,28 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:8080/SMod/
+Authorization: Basic Admin Admin
+Content-Type: application/json
+
+{
+  "nomSM": "SM1",
+  "module": "CodeTest",
+  "typeCours": "CM",
+  "groupe": "Groupe4",
+  "enseignant": "o4321"
+}
+
+###
 POST http://localhost:8080/salle/
 Authorization: Basic Admin Admin
 Content-Type: application/json
 
 {
-    "nomSalle": "E05"
+  "nomSalle": "E05"
 
 }
-###
-GET http://localhost:8080/emargement/168fd113-5370-4a35-8046-1df0f051c1b8
-Authorization: Basic p.n@etu.univ-orleans.fr o123
 
-###
-GET http://localhost:8080/emargement/QR/168fd113-5370-4a35-8046-1df0f051c1b8
-Authorization: Basic p.n@etu.univ-orleans.fr o123
-###
-GET localhost:8080/emargement/168fd113-5370-4a35-8046-1df0f051c1b8/2c4420cca8689c3cecfa3ecfeb21a1d6
-Authorization: Basic p.n@etu.univ-orleans.fr o123
 ###
 POST http://localhost:8080/emargement/
 Authorization: Basic Admin Admin
@@ -175,6 +130,70 @@ Content-Type: application/json
     "nomSalle": "E05"
   }
 }
+
+###
+GET http://localhost:8080/etudiant/
+Authorization: Basic Admin Admin
+
+###
+GET http://localhost:8080/etudiant/o234567
+Authorization: Basic Admin Admin
+
+###
+DELETE http://localhost:8080/etudiant/o123qq
+Authorization: Basic Admin Admin
+
+
+###
+GET http://localhost:8080/enseignant/o4321
+Authorization: Basic Admin Admin
+
+###
+DELETE http://localhost:8080/enseignant/o4321
+Authorization: Basic Admin Admin
+
+###
+GET http://localhost:8080/enseignant/
+Authorization: Basic Admin Admin
+
+###
+GET http://localhost:8080/semestre/
+Authorization: Basic Admin Admin
+
+###
+DELETE http://localhost:8080/semestre/S2
+Authorization: Basic Admin Admin
+
+###
+GET http://localhost:8080/module/
+Authorization: Basic Admin Admin
+
+###
+PUT http://localhost:8080/module/CodeTest
+Authorization: Basic Admin Admin
+Content-Type: application/json
+
+{
+  "nomM": "Test et qualite",
+  "semestre":{
+    "nomS": "S1"
+  }
+}
+
+###
+GET http://localhost:8080/groupe/
+Authorization: Basic Admin Admin
+
+###
+GET http://localhost:8080/emargement/168fd113-5370-4a35-8046-1df0f051c1b8
+Authorization: Basic p.n@etu.univ-orleans.fr o123
+
+###
+GET http://localhost:8080/emargement/QR/168fd113-5370-4a35-8046-1df0f051c1b8
+Authorization: Basic p.n@etu.univ-orleans.fr o123
+###
+GET localhost:8080/emargement/168fd113-5370-4a35-8046-1df0f051c1b8/2c4420cca8689c3cecfa3ecfeb21a1d6
+Authorization: Basic p.n@etu.univ-orleans.fr o123
 ###
 GET http://localhost:8080/emargement/ouverts
 Authorization: Basic Admin Admin
@@ -202,3 +221,10 @@ Authorization: Basic Jean.Richard@etu.univ-orleans.fr o234567
 ###
 GET http://localhost:8080/emargement/bf2317bf-49f7-4317-82be-cb10bb6bb666/bbfbc1697ad835e4dcf5243a52857ad7
 Authorization: Basic Jean.Richard@etu.univ-orleans.fr o234567
+
+###
+GET http://localhost:8080/emargement/
+Authorization: Basic Admin Admin
+
+
+

@@ -124,9 +124,10 @@ import java.util.Optional;
          */
         @GetMapping("/ouverts")
         public ResponseEntity<List<Emargement>> getEmargementsOuverts(){
-            List<Emargement> listeEmargementsOuverts = new ArrayList<>();
-            facadeEmargement.findByEtatEmargement("Ouvert").forEach(e -> listeEmargementsOuverts.add(e.get()));
-            return ResponseEntity.ok().body(listeEmargementsOuverts);
+//            List<Emargement> listeEmargementsOuverts = new ArrayList<>();
+//            facadeEmargement.findByEtatEmargement("Ouvert").forEach(e -> listeEmargementsOuverts.add(e.get()));
+//            return ResponseEntity.ok().body(listeEmargementsOuverts);
+            return ResponseEntity.ok().body(facadeEmargement.findByEtatEmargement(EtatEmargement.Ouvert));
         }
 
         /**
@@ -135,9 +136,10 @@ import java.util.Optional;
          */
         @GetMapping("/clos")
         public ResponseEntity<List<Emargement>> getEmargementsClos(){
-            List<Emargement> listeEmargementsClos = new ArrayList<>();
-            facadeEmargement.findByEtatEmargement("Clos").forEach(e -> listeEmargementsClos.add(e.get()));
-            return ResponseEntity.ok().body(listeEmargementsClos);
+//            List<Emargement> listeEmargementsClos = new ArrayList<>();
+//            facadeEmargement.findByEtatEmargement("Clos").forEach(e -> listeEmargementsClos.add(e.get()));
+//            return ResponseEntity.ok().body(listeEmargementsClos);
+            return ResponseEntity.ok().body(facadeEmargement.findByEtatEmargement(EtatEmargement.Clos));
         }
 
         /**
@@ -250,9 +252,12 @@ import java.util.Optional;
          */
         @GetMapping( "/")
         public ResponseEntity<List<Emargement>> getAll() {
-            return ResponseEntity.ok().body(facadeEmargement.findAll());
+            if(facadeEmargement.findAll().isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }else{
+                return ResponseEntity.ok().body(facadeEmargement.findAll());
+            }
         }
-
 }
 
 
