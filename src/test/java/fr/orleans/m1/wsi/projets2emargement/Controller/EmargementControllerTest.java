@@ -222,4 +222,78 @@ class EmargementControllerTest {
 
 
 
+    @Test
+    public void testCreerEmargementKO1() throws Exception {
+
+        String loginAdmin = dataTest.getLoginAdmin();
+        String passwordAdmin = dataTest.getPasswordAdmin();
+
+        Emargement emargement = new Emargement();
+
+        Mockito.when(facadeEmargement.save(emargement)).thenReturn(emargement);
+        Mockito.when(facadeSalle.findById(dataTest.getSalle().getNomSalle())).thenReturn(Optional.of(dataTest.getSalle()));
+        Mockito.when(facadeSousModule.findById(dataTest.getSousModule().getNomSM())).thenReturn(Optional.of(dataTest.getSousModule()));
+        Mockito.when(facadeGroupe.findById(dataTest.getSousModule().getGroupe())).thenReturn(Optional.of(dataTest.getGroupe()));
+
+        mockMvc.perform(post("/emargement/")
+                        .with(httpBasic(loginAdmin,passwordAdmin))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(emargement)))
+                .andExpect(status().isBadRequest())
+                .andDo(document(
+                        "post-creationEmargement-KO1",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint())
+                ));
+    }
+
+//    @Test
+//    public void testCreerEmargementKO2() throws Exception {
+//
+//        String loginAdmin = dataTest.getLoginAdmin();
+//        String passwordAdmin = dataTest.getPasswordAdmin();
+//
+//        Emargement emargement1 = new Emargement(LocalDateTime.parse("2022-05-28T10:30"), dataTest.getSousModule(), dataTest.getSalle(), dataTest.getEtudiants());
+//        Emargement emargement2 = new Emargement(LocalDateTime.parse("2022-05-28T10:30"), dataTest.getSousModule(), dataTest.getSalle(), dataTest.getEtudiants());
+//
+//
+//        Mockito.when(facadeEmargement.save(emargement1)).thenReturn(emargement1);
+//        Mockito.when(facadeSalle.findById(dataTest.getSalle().getNomSalle())).thenReturn(Optional.of(dataTest.getSalle()));
+//        Mockito.when(facadeSousModule.findById(dataTest.getSousModule().getNomSM())).thenReturn(Optional.of(dataTest.getSousModule()));
+//        Mockito.when(facadeGroupe.findById(dataTest.getSousModule().getGroupe())).thenReturn(Optional.of(dataTest.getGroupe()));
+//
+//        mockMvc.perform(post("/emargement/")
+//                        .with(httpBasic(loginAdmin,passwordAdmin))
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(emargement1)))
+//                .andExpect(status().isCreated())
+//                .andExpect(jsonPath("$", notNullValue()))
+//                .andExpect(header().exists("Location"));
+//
+//        //facadeEmargement.findByHeureDebutAndHeureFinAndSalle(em.getHeureDebut(), em.getHeureFin(), facadeSalle.findById(em.getSalle().getNomSalle()).get()).isPresent()
+//
+//        Mockito.when(facadeEmargement.findByHeureDebutAndHeureFinAndSalle(emargement2.getHeureDebut(), emargement2.getHeureFin(), emargement2.getSalle())).thenReturn(Optional.of(emargement1));
+//
+//
+//        Mockito.when(facadeEmargement.save(emargement2)).thenReturn(emargement2);
+//        Mockito.when(facadeSalle.findById(dataTest.getSalle().getNomSalle())).thenReturn(Optional.of(dataTest.getSalle()));
+//        Mockito.when(facadeSousModule.findById(dataTest.getSousModule().getNomSM())).thenReturn(Optional.of(dataTest.getSousModule()));
+//        Mockito.when(facadeGroupe.findById(dataTest.getSousModule().getGroupe())).thenReturn(Optional.of(dataTest.getGroupe()));
+//
+//        mockMvc.perform(post("/emargement/")
+//                        .with(httpBasic(loginAdmin,passwordAdmin))
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(emargement2)))
+//                .andExpect(status().isConflict())
+//                .andDo(document(
+//                        "post-creationEmargement-KO2",
+//                        preprocessRequest(prettyPrint()),
+//                        preprocessResponse(prettyPrint())
+//                ));
+//    }
+
+
 }
