@@ -52,8 +52,6 @@ public class EmargementController {
     public ResponseEntity<Emargement> creerEmargement(@RequestBody Emargement em) {
         if (em.getHeureDebut() == null || em.getHeureFin() == null || em.getSalle().getNomSalle() == null || em.getSalle().getNomSalle().isEmpty() || em.getSousModule().getNomSM() == null || em.getSousModule().getNomSM().isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        if (facadeSalle.findById(em.getSalle().getNomSalle()).isEmpty())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         else if (facadeEmargement.findByHeureDebutAndHeureFinAndSalle(em.getHeureDebut(), em.getHeureFin(), facadeSalle.findById(em.getSalle().getNomSalle()).get()).isPresent())
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         else {

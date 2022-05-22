@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
@@ -81,7 +82,12 @@ class EmargementControllerTest {
     ObjectMapper objectMapper;
 
 
-
+    /**
+     * GET
+     * Recuperer tous les emargements
+     * Code 200
+     * @throws Exception
+     */
     @Test
     public void testGetAllOK() throws Exception {
 
@@ -106,6 +112,12 @@ class EmargementControllerTest {
                 ));
     }
 
+    /**
+     * GET
+     * Recuperer tous les emargements avec emargements vide
+     * Code 404
+     * @throws Exception
+     */
     @Test
     public void testGetAllKO() throws Exception {
         List<Emargement> emargements = new ArrayList<>();
@@ -126,6 +138,12 @@ class EmargementControllerTest {
                 ));
     }
 
+    /**
+     * GET
+     * Recuperer tous les emargements ouverts
+     * Code 200
+     * @throws Exception
+     */
     @Test
     public void testGetEmargementsOuvertsOK() throws Exception {
 
@@ -159,6 +177,12 @@ class EmargementControllerTest {
                 ));
     }
 
+    /**
+     * GET
+     * Recuperer tous les emargements clos
+     * Code 200
+     * @throws Exception
+     */
     @Test
     public void testGetEmargementsClosOK() throws Exception {
 
@@ -192,6 +216,12 @@ class EmargementControllerTest {
                 ));
     }
 
+    /**
+     * POST
+     * Création d’un nouvel emargement
+     * Code 201
+     * @throws Exception
+     */
     @Test
     public void testCreerEmargementOK() throws Exception {
 
@@ -220,8 +250,12 @@ class EmargementControllerTest {
                 ));
     }
 
-
-
+    /**
+     * POST
+     * Création d’un nouvel émargement avec des paramètres null
+     * Code 409
+     * @throws Exception
+     */
     @Test
     public void testCreerEmargementKO1() throws Exception {
 
@@ -293,6 +327,58 @@ class EmargementControllerTest {
 //                        preprocessRequest(prettyPrint()),
 //                        preprocessResponse(prettyPrint())
 //                ));
+//    }
+
+//    public ResponseEntity<Emargement> getEmargement(@PathVariable String idEmargement) {
+//        Optional<Emargement> emargement = facadeEmargement.findById(idEmargement);
+//        if (emargement.isEmpty()) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        } else {
+//            return ResponseEntity.ok().body(emargement.get());
+//        }
+//    }
+
+//    @Test
+//    public void getEmargementOK() throws Exception {
+//
+//        String loginAdmin = dataTest.getLoginAdmin();
+//        String passwordAdmin = dataTest.getPasswordAdmin();
+//
+//        Emargement emargement = new Emargement(LocalDateTime.parse("2022-05-28T10:30"), dataTest.getSousModule(), dataTest.getSalle(), dataTest.getEtudiants());
+//
+//        AtomicReference<String> identifiant = new AtomicReference<>("");
+//
+//        Mockito.when(facadeEmargement.save(emargement)).thenReturn(emargement);
+//        Mockito.when(facadeSalle.findById(dataTest.getSalle().getNomSalle())).thenReturn(Optional.of(dataTest.getSalle()));
+//        Mockito.when(facadeSousModule.findById(dataTest.getSousModule().getNomSM())).thenReturn(Optional.of(dataTest.getSousModule()));
+//        Mockito.when(facadeGroupe.findById(dataTest.getSousModule().getGroupe())).thenReturn(Optional.of(dataTest.getGroupe()));
+//
+//        mockMvc.perform(post("/emargement/")
+//                        .with(httpBasic(loginAdmin,passwordAdmin))
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(emargement)))
+//                .andExpect(status().isCreated())
+//                .andExpect(jsonPath("$", notNullValue()))
+//                .andExpect(header().exists("Location"))
+//                .andDo((v) -> {
+//                    identifiant.set(v.getResponse().getHeader("Location"));
+//                });
+//        String[] idDecompose = identifiant.get().split("/");
+//        String idEmargement = idDecompose[idDecompose.length-1];
+//
+//        Mockito.when(facadeEmargement.findById(idEmargement)).thenReturn(Optional.of(emargement));
+//
+//        mockMvc.perform(get("/emargement/"+idEmargement)
+//                        .with(httpBasic(loginAdmin,passwordAdmin))
+//                        .accept(MediaType.APPLICATION_JSON_VALUE))
+//                .andExpect(status().isOk())
+//                .andDo(document(
+//                        "get-emargement-OK",
+//                        preprocessRequest(prettyPrint()),
+//                        preprocessResponse(prettyPrint())
+//                ));
+//
 //    }
 
 
