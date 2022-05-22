@@ -1,6 +1,8 @@
 package fr.orleans.m1.wsi.projets2emargement.Controller;
 
+
 import fr.orleans.m1.wsi.projets2emargement.Modele.Etudiant;
+import fr.orleans.m1.wsi.projets2emargement.Modele.Groupe;
 import fr.orleans.m1.wsi.projets2emargement.Modele.Salle;
 import fr.orleans.m1.wsi.projets2emargement.Modele.SousModule;
 
@@ -13,5 +15,6 @@ public interface DataTest {
     SousModule getSousModule();
     String getLoginAdmin();
     String getPasswordAdmin();
+    Groupe getGroupe();
 
 }

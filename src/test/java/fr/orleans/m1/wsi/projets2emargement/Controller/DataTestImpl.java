@@ -1,9 +1,6 @@
 package fr.orleans.m1.wsi.projets2emargement.Controller;
 
-import fr.orleans.m1.wsi.projets2emargement.Modele.Etudiant;
-import fr.orleans.m1.wsi.projets2emargement.Modele.Salle;
-import fr.orleans.m1.wsi.projets2emargement.Modele.SousModule;
-import fr.orleans.m1.wsi.projets2emargement.Modele.TypeCours;
+import fr.orleans.m1.wsi.projets2emargement.Modele.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -16,7 +13,7 @@ public class DataTestImpl implements DataTest {
     public List<Etudiant> getEtudiants() {
         return Arrays.asList(
                 new Etudiant("1", "Richard", "Jean", Arrays.asList("Groupe1")),
-                new Etudiant("2", "TASDEMiR", "Seyma"),
+                new Etudiant("2", "TASDEMiR", "Seyma", Arrays.asList("Groupe1")),
                 new Etudiant("3", "Saiah", "Nadir", Arrays.asList("Groupe2", "Groupe1"))
         );
     }
@@ -31,6 +28,8 @@ public class DataTestImpl implements DataTest {
         return new SousModule("SM1", "Module1", TypeCours.CM, "Groupe1", "o123");
     }
 
+
+
     @Override
     public String getLoginAdmin() {
         return "Admin";
@@ -39,6 +38,11 @@ public class DataTestImpl implements DataTest {
     @Override
     public String getPasswordAdmin() {
         return "Admin";
+    }
+
+    @Override
+    public Groupe getGroupe() {
+        return new Groupe("Groupe1", getEtudiants(), List.of(getSousModule()));
     }
 
 
