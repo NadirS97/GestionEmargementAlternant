@@ -16,6 +16,22 @@ include::../../../target/generated-snippets/get-all-emargements-KO/request-body.
 `Body Response:`
 include::../../../target/generated-snippets/get-all-emargements-KO/response-body.adoc[]
 
+== POST creerEmargement() : 409
+http://localhost:8080/emargement/
+
+_Création d'un nouvel émargement avec des paramètres null_
+
+MethodTest: testCreerEmargementKO1()
+
+`HTTP Request:`
+include::../../../target/generated-snippets/post-creationEmargement-KO1/http-request.adoc[]
+`HTTP Response:`
+include::../../../target/generated-snippets/post-creationEmargement-KO1/http-response.adoc[]
+`Body request:`
+include::../../../target/generated-snippets/post-creationEmargement-KO1/request-body.adoc[]
+`Body Response:`
+include::../../../target/generated-snippets/post-creationEmargement-KO1/response-body.adoc[]
+
 
 
 
