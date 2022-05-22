@@ -66,6 +66,15 @@ class EmargementControllerTest {
     FacadeEmargement facadeEmargement;
 
     @MockBean
+    FacadeSalle facadeSalle;
+
+    @MockBean
+    FacadeModule facadeModule;
+
+    @MockBean
+    FacadeSousModule facadeSousModule;
+
+    @MockBean
     FacadeGroupe facadeGroupe;
 
     @Autowired
@@ -178,6 +187,34 @@ class EmargementControllerTest {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andDo(document(
                         "get-emargementsClos-OK",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint())
+                ));
+    }
+
+    @Test
+    public void testCreerEmargementOK() throws Exception {
+
+        String loginAdmin = dataTest.getLoginAdmin();
+        String passwordAdmin = dataTest.getPasswordAdmin();
+
+        Emargement emargement = new Emargement(LocalDateTime.parse("2022-05-28T10:30"), dataTest.getSousModule(), dataTest.getSalle(), dataTest.getEtudiants());
+
+        Mockito.when(facadeEmargement.save(emargement)).thenReturn(emargement);
+        Mockito.when(facadeSalle.findById(dataTest.getSalle().getNomSalle())).thenReturn(Optional.of(dataTest.getSalle()));
+        Mockito.when(facadeSousModule.findById(dataTest.getSousModule().getNomSM())).thenReturn(Optional.of(dataTest.getSousModule()));
+        Mockito.when(facadeGroupe.findById(dataTest.getSousModule().getGroupe())).thenReturn(Optional.of(dataTest.getGroupe()));
+
+        mockMvc.perform(post("/emargement/")
+                        .with(httpBasic(loginAdmin,passwordAdmin))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(emargement)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(header().exists("Location"))
+                .andDo(document(
+                        "post-creationEmargement-OK",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint())
                 ));

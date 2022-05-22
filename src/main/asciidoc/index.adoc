@@ -49,6 +49,22 @@ include::../../../target/generated-snippets/get-emargementsClos-OK/request-body.
 include::../../../target/generated-snippets/get-emargementsClos-OK/response-body.adoc[]
 
 
+== POST creerEmargement() : 201
+http://localhost:8080/emargement/
+
+_Création d'un nouvel emargement_
+
+MethodTest: testCreerEmargementOK()
+
+`HTTP Request:`
+include::../../../target/generated-snippets/post-creationEmargement-OK/http-request.adoc[]
+`HTTP Response:`
+include::../../../target/generated-snippets/post-creationEmargement-OK/http-response.adoc[]
+`Body request:`
+include::../../../target/generated-snippets/post-creationEmargement-OK/request-body.adoc[]
+`Body Response:`
+include::../../../target/generated-snippets/post-creationEmargement-OK/response-body.adoc[]
+
 
 
 

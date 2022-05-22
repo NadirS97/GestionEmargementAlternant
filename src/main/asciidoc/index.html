@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="generator" content="Asciidoctor 2.0.17">
 <title>API Docs</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -193,7 +193,8 @@ body.toc2.toc-right{padding-left:0;padding-right:20em}}
 #content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
 details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
 details{margin-left:1.25rem}
-details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;-webkit-tap-highlight-color:transparent}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
 details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
 details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
 details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
@@ -235,9 +236,8 @@ pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
 table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
 table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
 table.linenotable td.code{padding-left:.75em}
-table.linenotable td.linenos{border-right:1px solid;opacity:.35;padding-right:.5em}
-pre.pygments .lineno{border-right:1px solid;opacity:.35;display:inline-block;margin-right:.75em}
-pre.pygments .lineno::before{content:"";margin-right:-.125em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
 .quoteblock{margin:0 1em 1.25em 1.5em;display:table}
 .quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
 .quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
@@ -274,7 +274,7 @@ table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-c
 table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
 table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
 table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
-table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
 th.halign-left,td.halign-left{text-align:left}
 th.halign-right,td.halign-right{text-align:right}
 th.halign-center,td.halign-center{text-align:center}
@@ -290,10 +290,11 @@ ol{margin-left:1.75em}
 ul li ol{margin-left:1.5em}
 dl dd{margin-left:1.125em}
 dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
-ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
 ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
 ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
 ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
 ul.checklist>li>p:first-child{margin-left:-1em}
 ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
 ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
@@ -336,8 +337,6 @@ sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
 #footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
 #footnotes .footnote:last-of-type{margin-bottom:0}
 #content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
-.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
-.gist .file-data>table td.line-data{width:99%}
 div.unbreakable{page-break-inside:avoid}
 .big{font-size:larger}
 .small{font-size:smaller}
@@ -460,13 +459,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code data-lang="http">GET /emargement/ HTTP/1.1
-Content-Length: 1846
+Content-Length: 1793
 Authorization: Basic QWRtaW46QWRtaW4=
 Host: localhost:8080
 
 [ {
-  &quot;idEmargement&quot; : &quot;30ca7b43-7dcc-4d3c-b68b-51b9b6b7d437&quot;,
-  &quot;heureDebut&quot; : &quot;2022-05-22T16:22:15.1532039&quot;,
+  &quot;idEmargement&quot; : &quot;5dbf0ce9-6196-4103-a1f7-26d9f091f4eb&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:21.574232&quot;,
   &quot;heureFin&quot; : &quot;2022-05-10T10:30:00&quot;,
   &quot;sousModule&quot; : {
     &quot;nomSM&quot; : &quot;SM1&quot;,
@@ -486,7 +485,7 @@ Host: localhost:8080
     &quot;nom&quot; : &quot;TASDEMiR&quot;,
     &quot;prenom&quot; : &quot;Seyma&quot;,
     &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
-    &quot;groupes&quot; : [ ]
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
   }, {
     &quot;numEtu&quot; : &quot;3&quot;,
     &quot;nom&quot; : &quot;Saiah&quot;,
@@ -500,8 +499,8 @@ Host: localhost:8080
     &quot;nomSalle&quot; : &quot;E01&quot;
   }
 }, {
-  &quot;idEmargement&quot; : &quot;7cab8769-372a-44b9-a553-bd9ae425914f&quot;,
-  &quot;heureDebut&quot; : &quot;2022-05-22T16:22:15.1541995&quot;,
+  &quot;idEmargement&quot; : &quot;5305fded-acc9-4af0-b46d-35dc4796edf5&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:21.57522&quot;,
   &quot;heureFin&quot; : &quot;2022-05-22T10:30:00&quot;,
   &quot;sousModule&quot; : {
     &quot;nomSM&quot; : &quot;SM1&quot;,
@@ -521,7 +520,7 @@ Host: localhost:8080
     &quot;nom&quot; : &quot;TASDEMiR&quot;,
     &quot;prenom&quot; : &quot;Seyma&quot;,
     &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
-    &quot;groupes&quot; : [ ]
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
   }, {
     &quot;numEtu&quot; : &quot;3&quot;,
     &quot;nom&quot; : &quot;Saiah&quot;,
@@ -550,11 +549,11 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 1846
+Content-Length: 1793
 
 [ {
-  &quot;idEmargement&quot; : &quot;30ca7b43-7dcc-4d3c-b68b-51b9b6b7d437&quot;,
-  &quot;heureDebut&quot; : &quot;2022-05-22T16:22:15.1532039&quot;,
+  &quot;idEmargement&quot; : &quot;5dbf0ce9-6196-4103-a1f7-26d9f091f4eb&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:21.574232&quot;,
   &quot;heureFin&quot; : &quot;2022-05-10T10:30:00&quot;,
   &quot;sousModule&quot; : {
     &quot;nomSM&quot; : &quot;SM1&quot;,
@@ -574,7 +573,7 @@ Content-Length: 1846
     &quot;nom&quot; : &quot;TASDEMiR&quot;,
     &quot;prenom&quot; : &quot;Seyma&quot;,
     &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
-    &quot;groupes&quot; : [ ]
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
   }, {
     &quot;numEtu&quot; : &quot;3&quot;,
     &quot;nom&quot; : &quot;Saiah&quot;,
@@ -588,8 +587,8 @@ Content-Length: 1846
     &quot;nomSalle&quot; : &quot;E01&quot;
   }
 }, {
-  &quot;idEmargement&quot; : &quot;7cab8769-372a-44b9-a553-bd9ae425914f&quot;,
-  &quot;heureDebut&quot; : &quot;2022-05-22T16:22:15.1541995&quot;,
+  &quot;idEmargement&quot; : &quot;5305fded-acc9-4af0-b46d-35dc4796edf5&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:21.57522&quot;,
   &quot;heureFin&quot; : &quot;2022-05-22T10:30:00&quot;,
   &quot;sousModule&quot; : {
     &quot;nomSM&quot; : &quot;SM1&quot;,
@@ -609,7 +608,7 @@ Content-Length: 1846
     &quot;nom&quot; : &quot;TASDEMiR&quot;,
     &quot;prenom&quot; : &quot;Seyma&quot;,
     &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
-    &quot;groupes&quot; : [ ]
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
   }, {
     &quot;numEtu&quot; : &quot;3&quot;,
     &quot;nom&quot; : &quot;Saiah&quot;,
@@ -631,8 +630,8 @@ Content-Length: 1846
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code>[ {
-  &quot;idEmargement&quot; : &quot;30ca7b43-7dcc-4d3c-b68b-51b9b6b7d437&quot;,
-  &quot;heureDebut&quot; : &quot;2022-05-22T16:22:15.1532039&quot;,
+  &quot;idEmargement&quot; : &quot;5dbf0ce9-6196-4103-a1f7-26d9f091f4eb&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:21.574232&quot;,
   &quot;heureFin&quot; : &quot;2022-05-10T10:30:00&quot;,
   &quot;sousModule&quot; : {
     &quot;nomSM&quot; : &quot;SM1&quot;,
@@ -652,7 +651,7 @@ Content-Length: 1846
     &quot;nom&quot; : &quot;TASDEMiR&quot;,
     &quot;prenom&quot; : &quot;Seyma&quot;,
     &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
-    &quot;groupes&quot; : [ ]
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
   }, {
     &quot;numEtu&quot; : &quot;3&quot;,
     &quot;nom&quot; : &quot;Saiah&quot;,
@@ -666,8 +665,8 @@ Content-Length: 1846
     &quot;nomSalle&quot; : &quot;E01&quot;
   }
 }, {
-  &quot;idEmargement&quot; : &quot;7cab8769-372a-44b9-a553-bd9ae425914f&quot;,
-  &quot;heureDebut&quot; : &quot;2022-05-22T16:22:15.1541995&quot;,
+  &quot;idEmargement&quot; : &quot;5305fded-acc9-4af0-b46d-35dc4796edf5&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:21.57522&quot;,
   &quot;heureFin&quot; : &quot;2022-05-22T10:30:00&quot;,
   &quot;sousModule&quot; : {
     &quot;nomSM&quot; : &quot;SM1&quot;,
@@ -687,7 +686,7 @@ Content-Length: 1846
     &quot;nom&quot; : &quot;TASDEMiR&quot;,
     &quot;prenom&quot; : &quot;Seyma&quot;,
     &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
-    &quot;groupes&quot; : [ ]
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
   }, {
     &quot;numEtu&quot; : &quot;3&quot;,
     &quot;nom&quot; : &quot;Saiah&quot;,
@@ -709,8 +708,8 @@ Content-Length: 1846
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code>[ {
-  &quot;idEmargement&quot; : &quot;30ca7b43-7dcc-4d3c-b68b-51b9b6b7d437&quot;,
-  &quot;heureDebut&quot; : &quot;2022-05-22T16:22:15.1532039&quot;,
+  &quot;idEmargement&quot; : &quot;5dbf0ce9-6196-4103-a1f7-26d9f091f4eb&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:21.574232&quot;,
   &quot;heureFin&quot; : &quot;2022-05-10T10:30:00&quot;,
   &quot;sousModule&quot; : {
     &quot;nomSM&quot; : &quot;SM1&quot;,
@@ -730,7 +729,7 @@ Content-Length: 1846
     &quot;nom&quot; : &quot;TASDEMiR&quot;,
     &quot;prenom&quot; : &quot;Seyma&quot;,
     &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
-    &quot;groupes&quot; : [ ]
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
   }, {
     &quot;numEtu&quot; : &quot;3&quot;,
     &quot;nom&quot; : &quot;Saiah&quot;,
@@ -744,8 +743,8 @@ Content-Length: 1846
     &quot;nomSalle&quot; : &quot;E01&quot;
   }
 }, {
-  &quot;idEmargement&quot; : &quot;7cab8769-372a-44b9-a553-bd9ae425914f&quot;,
-  &quot;heureDebut&quot; : &quot;2022-05-22T16:22:15.1541995&quot;,
+  &quot;idEmargement&quot; : &quot;5305fded-acc9-4af0-b46d-35dc4796edf5&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:21.57522&quot;,
   &quot;heureFin&quot; : &quot;2022-05-22T10:30:00&quot;,
   &quot;sousModule&quot; : {
     &quot;nomSM&quot; : &quot;SM1&quot;,
@@ -765,7 +764,7 @@ Content-Length: 1846
     &quot;nom&quot; : &quot;TASDEMiR&quot;,
     &quot;prenom&quot; : &quot;Seyma&quot;,
     &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
-    &quot;groupes&quot; : [ ]
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
   }, {
     &quot;numEtu&quot; : &quot;3&quot;,
     &quot;nom&quot; : &quot;Saiah&quot;,
@@ -819,11 +818,11 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 924
+Content-Length: 898
 
 [ {
-  &quot;idEmargement&quot; : &quot;3143c397-82df-4dc8-8ba2-a0c06164ba2c&quot;,
-  &quot;heureDebut&quot; : &quot;2022-05-22T16:22:15.5675435&quot;,
+  &quot;idEmargement&quot; : &quot;02dfea5d-46a1-444f-861b-a15c1b36e635&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:21.964314&quot;,
   &quot;heureFin&quot; : &quot;2022-05-22T10:30:00&quot;,
   &quot;sousModule&quot; : {
     &quot;nomSM&quot; : &quot;SM1&quot;,
@@ -843,7 +842,7 @@ Content-Length: 924
     &quot;nom&quot; : &quot;TASDEMiR&quot;,
     &quot;prenom&quot; : &quot;Seyma&quot;,
     &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
-    &quot;groupes&quot; : [ ]
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
   }, {
     &quot;numEtu&quot; : &quot;3&quot;,
     &quot;nom&quot; : &quot;Saiah&quot;,
@@ -873,8 +872,8 @@ Content-Length: 924
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code>[ {
-  &quot;idEmargement&quot; : &quot;3143c397-82df-4dc8-8ba2-a0c06164ba2c&quot;,
-  &quot;heureDebut&quot; : &quot;2022-05-22T16:22:15.5675435&quot;,
+  &quot;idEmargement&quot; : &quot;02dfea5d-46a1-444f-861b-a15c1b36e635&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:21.964314&quot;,
   &quot;heureFin&quot; : &quot;2022-05-22T10:30:00&quot;,
   &quot;sousModule&quot; : {
     &quot;nomSM&quot; : &quot;SM1&quot;,
@@ -894,7 +893,7 @@ Content-Length: 924
     &quot;nom&quot; : &quot;TASDEMiR&quot;,
     &quot;prenom&quot; : &quot;Seyma&quot;,
     &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
-    &quot;groupes&quot; : [ ]
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
   }, {
     &quot;numEtu&quot; : &quot;3&quot;,
     &quot;nom&quot; : &quot;Saiah&quot;,
@@ -948,11 +947,11 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 922
+Content-Length: 896
 
 [ {
-  &quot;idEmargement&quot; : &quot;0acfdb86-d984-4d02-9f10-e74794954967&quot;,
-  &quot;heureDebut&quot; : &quot;2022-05-22T16:22:15.3513619&quot;,
+  &quot;idEmargement&quot; : &quot;128e6949-eb6b-497c-9cab-843d5dd8c5b8&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:21.770864&quot;,
   &quot;heureFin&quot; : &quot;2022-05-10T10:30:00&quot;,
   &quot;sousModule&quot; : {
     &quot;nomSM&quot; : &quot;SM1&quot;,
@@ -972,7 +971,7 @@ Content-Length: 922
     &quot;nom&quot; : &quot;TASDEMiR&quot;,
     &quot;prenom&quot; : &quot;Seyma&quot;,
     &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
-    &quot;groupes&quot; : [ ]
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
   }, {
     &quot;numEtu&quot; : &quot;3&quot;,
     &quot;nom&quot; : &quot;Saiah&quot;,
@@ -1002,8 +1001,8 @@ Content-Length: 922
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight nowrap"><code>[ {
-  &quot;idEmargement&quot; : &quot;0acfdb86-d984-4d02-9f10-e74794954967&quot;,
-  &quot;heureDebut&quot; : &quot;2022-05-22T16:22:15.3513619&quot;,
+  &quot;idEmargement&quot; : &quot;128e6949-eb6b-497c-9cab-843d5dd8c5b8&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:21.770864&quot;,
   &quot;heureFin&quot; : &quot;2022-05-10T10:30:00&quot;,
   &quot;sousModule&quot; : {
     &quot;nomSM&quot; : &quot;SM1&quot;,
@@ -1023,7 +1022,7 @@ Content-Length: 922
     &quot;nom&quot; : &quot;TASDEMiR&quot;,
     &quot;prenom&quot; : &quot;Seyma&quot;,
     &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
-    &quot;groupes&quot; : [ ]
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
   }, {
     &quot;numEtu&quot; : &quot;3&quot;,
     &quot;nom&quot; : &quot;Saiah&quot;,
@@ -1041,10 +1040,214 @@ Content-Length: 922
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_post_creeremargement_201">POST creerEmargement() : 201</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="http://localhost:8080/emargement/" class="bare">http://localhost:8080/emargement/</a></p>
+</div>
+<div class="paragraph">
+<p><em>Création d&#8217;un nouvel emargement</em></p>
+</div>
+<div class="paragraph">
+<p>MethodTest: testCreerEmargementOK()</p>
+</div>
+<div class="paragraph">
+<p><code>HTTP Request:</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">POST /emargement/ HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Content-Length: 894
+Authorization: Basic QWRtaW46QWRtaW4=
+Host: localhost:8080
+
+{
+  &quot;idEmargement&quot; : &quot;9b60ccac-5a54-4377-9eef-0bb96c95ac0e&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:22.130858&quot;,
+  &quot;heureFin&quot; : &quot;2022-05-28T10:30:00&quot;,
+  &quot;sousModule&quot; : {
+    &quot;nomSM&quot; : &quot;SM1&quot;,
+    &quot;module&quot; : &quot;Module1&quot;,
+    &quot;typeCours&quot; : &quot;CM&quot;,
+    &quot;groupe&quot; : &quot;Groupe1&quot;,
+    &quot;enseignant&quot; : &quot;o123&quot;
+  },
+  &quot;etudiantsAbsents&quot; : [ {
+    &quot;numEtu&quot; : &quot;1&quot;,
+    &quot;nom&quot; : &quot;Richard&quot;,
+    &quot;prenom&quot; : &quot;Jean&quot;,
+    &quot;email&quot; : &quot;Jean.Richard@etu.univ-orleans.fr&quot;,
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
+  }, {
+    &quot;numEtu&quot; : &quot;2&quot;,
+    &quot;nom&quot; : &quot;TASDEMiR&quot;,
+    &quot;prenom&quot; : &quot;Seyma&quot;,
+    &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
+  }, {
+    &quot;numEtu&quot; : &quot;3&quot;,
+    &quot;nom&quot; : &quot;Saiah&quot;,
+    &quot;prenom&quot; : &quot;Nadir&quot;,
+    &quot;email&quot; : &quot;Nadir.Saiah@etu.univ-orleans.fr&quot;,
+    &quot;groupes&quot; : [ &quot;Groupe2&quot;, &quot;Groupe1&quot; ]
+  } ],
+  &quot;etudiantsPresents&quot; : [ ],
+  &quot;etatEmargement&quot; : &quot;Ouvert&quot;,
+  &quot;salle&quot; : {
+    &quot;nomSalle&quot; : &quot;E01&quot;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>HTTP Response:</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
+Location: http://localhost:8080/emargement/b69dc480-8f1d-4975-a292-f2c7ac2674ac
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 894
+
+{
+  &quot;idEmargement&quot; : &quot;b69dc480-8f1d-4975-a292-f2c7ac2674ac&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:22.130858&quot;,
+  &quot;heureFin&quot; : &quot;2022-05-28T10:30:00&quot;,
+  &quot;sousModule&quot; : {
+    &quot;nomSM&quot; : &quot;SM1&quot;,
+    &quot;module&quot; : &quot;Module1&quot;,
+    &quot;typeCours&quot; : &quot;CM&quot;,
+    &quot;groupe&quot; : &quot;Groupe1&quot;,
+    &quot;enseignant&quot; : &quot;o123&quot;
+  },
+  &quot;etudiantsAbsents&quot; : [ {
+    &quot;numEtu&quot; : &quot;1&quot;,
+    &quot;nom&quot; : &quot;Richard&quot;,
+    &quot;prenom&quot; : &quot;Jean&quot;,
+    &quot;email&quot; : &quot;Jean.Richard@etu.univ-orleans.fr&quot;,
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
+  }, {
+    &quot;numEtu&quot; : &quot;2&quot;,
+    &quot;nom&quot; : &quot;TASDEMiR&quot;,
+    &quot;prenom&quot; : &quot;Seyma&quot;,
+    &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
+  }, {
+    &quot;numEtu&quot; : &quot;3&quot;,
+    &quot;nom&quot; : &quot;Saiah&quot;,
+    &quot;prenom&quot; : &quot;Nadir&quot;,
+    &quot;email&quot; : &quot;Nadir.Saiah@etu.univ-orleans.fr&quot;,
+    &quot;groupes&quot; : [ &quot;Groupe2&quot;, &quot;Groupe1&quot; ]
+  } ],
+  &quot;etudiantsPresents&quot; : [ ],
+  &quot;etatEmargement&quot; : &quot;Ouvert&quot;,
+  &quot;salle&quot; : {
+    &quot;nomSalle&quot; : &quot;E01&quot;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Body request:</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code>{
+  &quot;idEmargement&quot; : &quot;9b60ccac-5a54-4377-9eef-0bb96c95ac0e&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:22.130858&quot;,
+  &quot;heureFin&quot; : &quot;2022-05-28T10:30:00&quot;,
+  &quot;sousModule&quot; : {
+    &quot;nomSM&quot; : &quot;SM1&quot;,
+    &quot;module&quot; : &quot;Module1&quot;,
+    &quot;typeCours&quot; : &quot;CM&quot;,
+    &quot;groupe&quot; : &quot;Groupe1&quot;,
+    &quot;enseignant&quot; : &quot;o123&quot;
+  },
+  &quot;etudiantsAbsents&quot; : [ {
+    &quot;numEtu&quot; : &quot;1&quot;,
+    &quot;nom&quot; : &quot;Richard&quot;,
+    &quot;prenom&quot; : &quot;Jean&quot;,
+    &quot;email&quot; : &quot;Jean.Richard@etu.univ-orleans.fr&quot;,
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
+  }, {
+    &quot;numEtu&quot; : &quot;2&quot;,
+    &quot;nom&quot; : &quot;TASDEMiR&quot;,
+    &quot;prenom&quot; : &quot;Seyma&quot;,
+    &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
+  }, {
+    &quot;numEtu&quot; : &quot;3&quot;,
+    &quot;nom&quot; : &quot;Saiah&quot;,
+    &quot;prenom&quot; : &quot;Nadir&quot;,
+    &quot;email&quot; : &quot;Nadir.Saiah@etu.univ-orleans.fr&quot;,
+    &quot;groupes&quot; : [ &quot;Groupe2&quot;, &quot;Groupe1&quot; ]
+  } ],
+  &quot;etudiantsPresents&quot; : [ ],
+  &quot;etatEmargement&quot; : &quot;Ouvert&quot;,
+  &quot;salle&quot; : {
+    &quot;nomSalle&quot; : &quot;E01&quot;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Body Response:</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight nowrap"><code>{
+  &quot;idEmargement&quot; : &quot;b69dc480-8f1d-4975-a292-f2c7ac2674ac&quot;,
+  &quot;heureDebut&quot; : &quot;2022-05-22T18:32:22.130858&quot;,
+  &quot;heureFin&quot; : &quot;2022-05-28T10:30:00&quot;,
+  &quot;sousModule&quot; : {
+    &quot;nomSM&quot; : &quot;SM1&quot;,
+    &quot;module&quot; : &quot;Module1&quot;,
+    &quot;typeCours&quot; : &quot;CM&quot;,
+    &quot;groupe&quot; : &quot;Groupe1&quot;,
+    &quot;enseignant&quot; : &quot;o123&quot;
+  },
+  &quot;etudiantsAbsents&quot; : [ {
+    &quot;numEtu&quot; : &quot;1&quot;,
+    &quot;nom&quot; : &quot;Richard&quot;,
+    &quot;prenom&quot; : &quot;Jean&quot;,
+    &quot;email&quot; : &quot;Jean.Richard@etu.univ-orleans.fr&quot;,
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
+  }, {
+    &quot;numEtu&quot; : &quot;2&quot;,
+    &quot;nom&quot; : &quot;TASDEMiR&quot;,
+    &quot;prenom&quot; : &quot;Seyma&quot;,
+    &quot;email&quot; : &quot;Seyma.TASDEMiR@etu.univ-orleans.fr&quot;,
+    &quot;groupes&quot; : [ &quot;Groupe1&quot; ]
+  }, {
+    &quot;numEtu&quot; : &quot;3&quot;,
+    &quot;nom&quot; : &quot;Saiah&quot;,
+    &quot;prenom&quot; : &quot;Nadir&quot;,
+    &quot;email&quot; : &quot;Nadir.Saiah@etu.univ-orleans.fr&quot;,
+    &quot;groupes&quot; : [ &quot;Groupe2&quot;, &quot;Groupe1&quot; ]
+  } ],
+  &quot;etudiantsPresents&quot; : [ ],
+  &quot;etatEmargement&quot; : &quot;Ouvert&quot;,
+  &quot;salle&quot; : {
+    &quot;nomSalle&quot; : &quot;E01&quot;
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-22 05:36:02 +0200
+Last updated 2022-05-22 18:38:09 +0200
 </div>
 </div>
 </body>
