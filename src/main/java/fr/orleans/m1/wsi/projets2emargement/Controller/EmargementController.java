@@ -168,7 +168,7 @@ public class EmargementController {
      * @return
      */
     @GetMapping("/{idEmargement}/present")
-    public ResponseEntity<List<Etudiant>> getEmargementEtudiantPresent(@PathVariable String idEmargement) {
+    public ResponseEntity<List<Etudiant>> getEtudiantsPresentEmargement(@PathVariable String idEmargement) {
         Optional<Emargement> emargement = facadeEmargement.findById(idEmargement);
         if (emargement.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -270,7 +270,7 @@ public class EmargementController {
      *
      * @return
      */
-    @GetMapping("/{idEtu}")
+    @GetMapping("/{idEtu}/absent")
     public ResponseEntity<List<Emargement>> getEmargementEtudiantAbsent(@PathVariable("idEtu") String idEtudiant) {
 
         Optional<Etudiant> etudiant = facadeEtudiant.findById(idEtudiant);
@@ -286,6 +286,30 @@ public class EmargementController {
                 }
             }
             return ResponseEntity.ok().body(emargementsEtudiantAbsent);
+        }
+    }
+
+    /**
+     * Recuperer tous les emargements clos où l'étudiant est present
+     *
+     * @return
+     */
+    @GetMapping("/{idEtu}/present")
+    public ResponseEntity<List<Emargement>> getEmargementEtudiantPresent(@PathVariable("idEtu") String idEtudiant) {
+
+        Optional<Etudiant> etudiant = facadeEtudiant.findById(idEtudiant);
+
+        if (etudiant.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            List<Emargement> emargement = facadeEmargement.findByEtatEmargement(EtatEmargement.Clos);
+            List<Emargement> emargementsEtudiantPresent = new ArrayList<>();
+            for (Emargement e : emargement) {
+                if (e.getEtudiantsPresents().contains(etudiant)) {
+                    emargementsEtudiantPresent.add(e);
+                }
+            }
+            return ResponseEntity.ok().body(emargementsEtudiantPresent);
         }
     }
 }
